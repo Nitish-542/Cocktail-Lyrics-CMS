@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MusicMixology.Models.SongDTO>
+@{
+    ViewData["Title"] = "Songs";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Add New Song</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Genre</th>
+            <th style="width:180px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var song in Model)
+        {
+            <tr>
+                <td>@song.Title</td>
+                <td>@song.ArtistName</td>
+                <td>@(string.IsNullOrEmpty(song.AlbumTitle) ? "-" : song.AlbumTitle)</td>
+                <td>@song.Genre</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@song.SongId" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@song.SongId" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@song.SongId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

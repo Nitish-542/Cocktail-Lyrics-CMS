@@ -1,0 +1,53 @@
+﻿@model IEnumerable<MusicMixology.Models.CocktailSongPairingDTO>
+
+@{
+    ViewData["Title"] = "Cocktail-Song Pairings";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Add New Pairing</a>
+</p>
+
+@if (Model.Any())
+{
+    var grouped = Model.GroupBy(p => p.MoodCategory);
+
+    foreach (var group in grouped)
+    {
+        <h4 class="mt-4">@group.Key Mood</h4>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Cocktail</th>
+                    <th>Song</th>
+                    <th>Genre</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pairing in group)
+                {
+                    <tr>
+                        <td>@pairing.Name</td>
+                        <td>@pairing.Title</td>
+                        <td>@pairing.Song?.Genre</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@pairing.PairingId" class="btn btn-info btn-sm">Details</a>
+                            <a asp-action="Edit" asp-route-id="@pairing.PairingId" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@pairing.PairingId" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    <div class="alert alert-info">
+        No pairings available. <a asp-action="Create">Create the first one</a>!
+    </div>
+}

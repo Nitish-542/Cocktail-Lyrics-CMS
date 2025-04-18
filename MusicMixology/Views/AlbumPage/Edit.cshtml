@@ -1,0 +1,34 @@
+﻿@model MusicMixology.ViewModels.AlbumViewModel
+@{
+    ViewData["Title"] = "Edit Album";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="AlbumId" />
+
+    <div class="form-group mb-3">
+        <label asp-for="AlbumTitle" class="form-label"></label>
+        <input asp-for="AlbumTitle" class="form-control" />
+        <span asp-validation-for="AlbumTitle" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-4">
+        <label asp-for="ArtistId" class="form-label"></label>
+        <select asp-for="ArtistId" class="form-control" asp-items="Model.ArtistList">
+            <option value="">-- Select Artist --</option>
+        </select>
+        <span asp-validation-for="ArtistId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,62 @@
+﻿@model MusicMixology.Models.CocktailDTO
+
+@{
+    ViewData["Title"] = "Add New Cocktail";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" asp-controller="CocktailPage" method="post">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Recipe" class="control-label"></label>
+        <textarea asp-for="Recipe" class="form-control"></textarea>
+        <span asp-validation-for="Recipe" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LiqIns" class="control-label"></label>
+        <input asp-for="LiqIns" class="form-control" />
+        <span asp-validation-for="LiqIns" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MixIns" class="control-label"></label>
+        <input asp-for="MixIns" class="form-control" />
+        <span asp-validation-for="MixIns" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CategoryId" class="control-label"></label>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
+            <option value="">-- Select Category --</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="BartenderId" class="control-label"></label>
+        <select asp-for="BartenderId" asp-items="ViewBag.Bartenders" class="form-control">
+            <option value="">-- Select Bartender --</option>
+        </select>
+        <span asp-validation-for="BartenderId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-primary">Add Cocktail</button>
+        <a asp-action="Index" asp-controller="CocktailPage" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

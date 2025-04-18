@@ -1,0 +1,195 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = MusicMixology
+build_property.RootNamespace = MusicMixology
+build_property.ProjectDir = C:\Users\acer\source\repos\MusicMixology\MusicMixology\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\acer\source\repos\MusicMixology\MusicMixology
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/AlbumPage/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1QYWdlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/AlbumPage/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1QYWdlXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/AlbumPage/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1QYWdlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/AlbumPage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1QYWdlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/AlbumPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1QYWdlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/ArtistPage/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0UGFnZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/ArtistPage/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0UGFnZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/ArtistPage/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0UGFnZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/ArtistPage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0UGFnZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/ArtistPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0UGFnZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/BartenderPage/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFydGVuZGVyUGFnZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/BartenderPage/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFydGVuZGVyUGFnZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/BartenderPage/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFydGVuZGVyUGFnZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/BartenderPage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFydGVuZGVyUGFnZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/BartenderPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFydGVuZGVyUGFnZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/CategoryPage/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlQYWdlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/CategoryPage/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlQYWdlXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/CategoryPage/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlQYWdlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/CategoryPage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlQYWdlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/CategoryPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlQYWdlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/CocktailPage/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ja3RhaWxQYWdlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/CocktailPage/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ja3RhaWxQYWdlXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/CocktailPage/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ja3RhaWxQYWdlXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/CocktailPage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ja3RhaWxQYWdlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/CocktailPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29ja3RhaWxQYWdlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/PairingPage/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFpcmluZ1BhZ2VcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/PairingPage/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFpcmluZ1BhZ2VcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/PairingPage/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFpcmluZ1BhZ2VcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/PairingPage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFpcmluZ1BhZ2VcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/PairingPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFpcmluZ1BhZ2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/SongPage/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29uZ1BhZ2VcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/SongPage/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29uZ1BhZ2VcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/SongPage/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29uZ1BhZ2VcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/SongPage/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29uZ1BhZ2VcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/SongPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29uZ1BhZ2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/acer/source/repos/MusicMixology/MusicMixology/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-274i2agsnz

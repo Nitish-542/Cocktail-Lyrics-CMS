@@ -1,0 +1,20 @@
+﻿@model MusicMixology.ViewModels.PairingViewModel
+@{
+    ViewData["Title"] = "Pairing Details";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">Cocktail</dt>
+    <dd class="col-sm-9">@Model.CocktailName</dd>
+
+    <dt class="col-sm-3">Song</dt>
+    <dd class="col-sm-9">@Model.SongTitle</dd>
+
+    <dt class="col-sm-3">Mood Category</dt>
+    <dd class="col-sm-9">@Model.MoodCategory</dd>
+</dl>
+
+<a asp-action="Edit" asp-route-id="@Model.PairingId" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

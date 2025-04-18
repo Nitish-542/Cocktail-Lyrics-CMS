@@ -1,0 +1,39 @@
+﻿@model MusicMixology.Models.CocktailDTO
+
+<h2>Edit Cocktail</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="CocktailID" />
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Recipe"></label>
+        <textarea asp-for="Recipe" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LiqIns"></label>
+        <input asp-for="LiqIns" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MixIns"></label>
+        <input asp-for="MixIns" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Category</label>
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control"></select>
+    </div>
+
+    <div class="form-group">
+        <label>Bartender</label>
+        <select asp-for="BartenderId" asp-items="ViewBag.Bartenders" class="form-control"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

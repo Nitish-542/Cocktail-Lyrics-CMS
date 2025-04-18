@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MusicMixology.Models.AlbumDTO>
+
+<h2 class="mb-4">Albums</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Add New Album</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Album Title</th>
+            <th>Artist</th>
+            <th>Songs</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var album in Model)
+        {
+            <tr>
+                <td>@album.AlbumTitle</td>
+                <td>@album.ArtistName</td>
+                <td>
+                    @if (album.Songs.Any())
+                    {
+                        <ul class="mb-0 ps-3">
+                            @foreach (var song in album.Songs)
+                            {
+                                <li>@song.Title (@song.Genre)</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <em>No songs</em>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@album.AlbumId" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@album.AlbumId" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@album.AlbumId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

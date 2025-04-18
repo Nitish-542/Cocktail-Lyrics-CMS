@@ -1,0 +1,20 @@
+﻿@model MusicMixology.Models.CocktailDTO
+
+@{
+    ViewData["Title"] = "Cocktail Details";
+}
+
+<h2>Cocktail Details</h2>
+
+<div class="card p-3">
+    <h4>@Model.Name</h4>
+    <p><strong>Recipe:</strong> @Model.Recipe</p>
+    <p><strong>Liquor Ingredients:</strong> @Model.LiqIns</p>
+    <p><strong>Mix Ingredients:</strong> @Model.MixIns</p>
+    <p><strong>Bartender:</strong> @Model.Bartender?.Name</p>
+    <p><strong>Category:</strong> @Model.Category?.CategoryName</p>
+
+    <a asp-action="Edit" asp-route-id="@Model.CocktailID" class="btn btn-warning">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.CocktailID" class="btn btn-danger">Delete</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
