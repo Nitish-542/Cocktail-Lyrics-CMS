@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MusicMixology.Data;
 using MusicMixology.Interfaces;
 using MusicMixology.Models;
 using MusicMixology.ViewModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace MusicMixology.Controllers
 {
@@ -18,7 +19,7 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
-        // GET: ArtistPage
+        // ✅ Everyone can view the list of artists
         public async Task<IActionResult> Index()
         {
             var artists = await _context.Artists
@@ -51,8 +52,7 @@ namespace MusicMixology.Controllers
             return View(viewModels);
         }
 
-
-        // GET: ArtistPage/Details/5
+        // ✅ Everyone can view artist details
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _artistService.GetByIdAsync(id);
@@ -88,15 +88,17 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // GET: ArtistPage/Create
+        // ✅ Admin-only: GET Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View(new ArtistViewModel());
         }
 
-        // POST: ArtistPage/Create
+        // ✅ Admin-only: POST Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(ArtistViewModel vm)
         {
             if (!ModelState.IsValid) return View(vm);
@@ -110,7 +112,8 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: ArtistPage/Edit/5
+        // ✅ Admin-only: GET Edit
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var dto = await _artistService.GetByIdAsync(id);
@@ -125,9 +128,10 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // POST: ArtistPage/Edit/5
+        // ✅ Admin-only: POST Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, ArtistViewModel vm)
         {
             if (id != vm.ArtistId) return NotFound();
@@ -145,7 +149,8 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: ArtistPage/Delete/5
+        // ✅ Admin-only: GET Delete
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var dto = await _artistService.GetByIdAsync(id);
@@ -154,9 +159,10 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // POST: ArtistPage/Delete/5
+        // ✅ Admin-only: POST Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var deleted = await _artistService.DeleteAsync(id);

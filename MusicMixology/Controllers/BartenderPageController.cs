@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MusicMixology.Interfaces;
 using MusicMixology.Models;
 using MusicMixology.ViewModels;
@@ -14,22 +15,33 @@ namespace MusicMixology.Controllers
             _bartenderService = bartenderService;
         }
 
-        // GET: BartenderPage
+        // ✅ Public access
         public async Task<IActionResult> Index()
         {
             var bartenders = await _bartenderService.GetAllAsync();
             return View(bartenders);
         }
 
-        // GET: BartenderPage/Create
+        // ✅ Public access
+        public async Task<IActionResult> Details(int id)
+        {
+            var vm = await _bartenderService.GetDetailsWithCocktailsAsync(id);
+            if (vm == null) return NotFound();
+
+            return View(vm);
+        }
+
+        // 🔐 Admin only
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: BartenderPage/Create
+        // 🔐 Admin only
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(BartenderDto dto)
         {
             if (!ModelState.IsValid)
@@ -39,7 +51,8 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: BartenderPage/Edit/5
+        // 🔐 Admin only
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var dto = await _bartenderService.GetByIdAsync(id);
@@ -48,9 +61,10 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // POST: BartenderPage/Edit/5
+        // 🔐 Admin only
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, BartenderDto dto)
         {
             if (id != dto.BartenderId) return NotFound();
@@ -64,7 +78,8 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: BartenderPage/Delete/5
+        // 🔐 Admin only
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var dto = await _bartenderService.GetByIdAsync(id);
@@ -73,9 +88,10 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // POST: BartenderPage/Delete/5
+        // 🔐 Admin only
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var deleted = await _bartenderService.DeleteAsync(id);
@@ -83,15 +99,5 @@ namespace MusicMixology.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-        // GET: BartenderPage/Details/5
-        public async Task<IActionResult> Details(int id)
-        {
-            var vm = await _bartenderService.GetDetailsWithCocktailsAsync(id);
-            if (vm == null) return NotFound();
-
-            return View(vm);
-        }
-
     }
 }

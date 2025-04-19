@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MusicMixology.Interfaces;
@@ -11,7 +12,7 @@ namespace MusicMixology.Controllers
     public class CocktailPageController : Controller
     {
         private readonly ICocktailService _cocktailService;
-        private readonly ApplicationDbContext _context; // still used for dropdowns
+        private readonly ApplicationDbContext _context;
 
         public CocktailPageController(ICocktailService cocktailService, ApplicationDbContext context)
         {
@@ -19,7 +20,7 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
-        // GET: CocktailPage/Index
+        // ✅ Everyone can view cocktails
         public async Task<IActionResult> Index(int? SelectedCategoryId, int? SelectedBartenderId)
         {
             var cocktails = await _cocktailService.GetAllAsync();
@@ -52,42 +53,40 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // GET: CocktailPage/Create
+        // ✅ Everyone can view details
+        public async Task<IActionResult> Details(int id)
+        {
+            var dto = await _cocktailService.GetByIdAsync(id);
+            if (dto == null) return NotFound();
+
+            return View(dto);
+        }
+
+        // 🔐 Admin only: Create
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             await LoadDropdownsAsync();
             return View(new CocktailDTO());
         }
 
-        // POST: CocktailPage/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CocktailDTO dto)
         {
-            Console.WriteLine("🔄 FORM SUBMITTED");
-            Console.WriteLine($"Name: {dto.Name}, CategoryID: {dto.CategoryId}, BartenderID: {dto.BartenderId}");
-
             if (!ModelState.IsValid)
             {
-                Console.WriteLine("❌ ModelState is invalid. Errors:");
-                foreach (var entry in ModelState)
-                {
-                    foreach (var error in entry.Value.Errors)
-                    {
-                        Console.WriteLine($"→ {entry.Key}: {error.ErrorMessage}");
-                    }
-                }
-
                 await LoadDropdownsAsync(dto.CategoryId, dto.BartenderId);
                 return View(dto);
             }
 
             await _cocktailService.CreateAsync(dto);
-            Console.WriteLine("✅ Cocktail saved to DB via service");
             return RedirectToAction(nameof(Index));
         }
 
-        // EDIT - GET
+        // 🔐 Admin only: Edit
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var dto = await _cocktailService.GetByIdAsync(id);
@@ -97,9 +96,9 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // EDIT - POST
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, CocktailDTO dto)
         {
             if (!ModelState.IsValid)
@@ -114,7 +113,8 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // DELETE - GET (Confirm page)
+        // 🔐 Admin only: Delete
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var dto = await _cocktailService.GetByIdAsync(id);
@@ -123,9 +123,9 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // DELETE - POST
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var deleted = await _cocktailService.DeleteAsync(id);
@@ -134,17 +134,7 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // DETAILS - GET (optional)
-        public async Task<IActionResult> Details(int id)
-        {
-            var dto = await _cocktailService.GetByIdAsync(id);
-            if (dto == null) return NotFound();
-
-            return View(dto);
-        }
-
-
-        // Helper to load ViewBag dropdowns
+        // 🔧 Helper
         private async Task LoadDropdownsAsync(int? selectedCategoryId = null, int? selectedBartenderId = null)
         {
             ViewBag.Categories = new SelectList(

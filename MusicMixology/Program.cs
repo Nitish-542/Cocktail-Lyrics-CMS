@@ -1,10 +1,12 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MusicMixology.Data;
 using MusicMixology.Interfaces;
 using MusicMixology.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// ✅ Dependency Injection for services
 builder.Services.AddScoped<ICocktailService, CocktailService>();
 builder.Services.AddScoped<IBartenderService, BartenderService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -13,11 +15,7 @@ builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<IArtistService, ArtistService>();
 builder.Services.AddScoped<ICocktailSongPairingService, CocktailSongPairingService>();
 
-
-
-
-
-// Add services to the container.
+// ✅ Database Connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -26,28 +24,41 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+// ✅ Identity with roles + default UI
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-    options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+{
+    options.SignIn.RequireConfirmedAccount = false;
+})
+.AddRoles<IdentityRole>() // ✅ Enables role support
+.AddEntityFrameworkStores<ApplicationDbContext>();
 
-// Add MVC + Swagger
+// ✅ Add MVC, Razor Pages, Swagger
+builder.Services.AddRazorPages(); // ✅ Needed for login/register UI
 builder.Services.AddControllersWithViews();
-builder.Services.AddEndpointsApiExplorer(); // ?? Add this
-builder.Services.AddSwaggerGen();           // ?? And this
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ✅ Apply migrations + seed roles/admin
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var db = services.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+
+    await RoleSeeder.SeedRolesAndAdminAsync(services);
+}
+
+// ✅ Middleware setup
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
-
-    // Enable Swagger in development
-    app.UseSwagger();                         // ?? Enable Swagger middleware
-    app.UseSwaggerUI(options =>               // ?? Swagger UI setup
+    app.UseSwagger();
+    app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Music & Mixology API V1");
-        options.RoutePrefix = "swagger"; // browse at /swagger
+        options.RoutePrefix = "swagger";
     });
 }
 else
@@ -61,12 +72,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); // ✅ Required for login
 app.UseAuthorization();
 
+// ✅ Route mapping
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapRazorPages();
+app.MapRazorPages(); // ✅ Enables /Identity/Account/Login, etc.
 
 app.Run();

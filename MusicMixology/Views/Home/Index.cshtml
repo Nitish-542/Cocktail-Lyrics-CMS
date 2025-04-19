@@ -1,8 +1,44 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome to MusicMixology";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5 mb-5">
+    <h1 class="display-4 fw-bold">🎶 Welcome to MusicMixology 🍸</h1>
+    <p class="lead mt-3">Discover the perfect cocktail and music pairings based on your mood.</p>
+
+    <a class="btn btn-primary btn-lg mt-4" asp-controller="PairingPage" asp-action="Index">
+        Explore Sound & Sip
+    </a>
+</div>
+
+<div class="row text-center mt-5">
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h5 class="card-title">Browse Cocktails</h5>
+                <p class="card-text">Explore our curated list of cocktails and discover your next favorite drink.</p>
+                <a asp-controller="CocktailPage" asp-action="Index" class="btn btn-outline-primary">View Cocktails</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h5 class="card-title">Listen by Mood</h5>
+                <p class="card-text">Find songs that match your vibe or explore pairings for different moods.</p>
+                <a asp-controller="PairingPage" asp-action="Index" class="btn btn-outline-primary">Start Pairing</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h5 class="card-title">Meet the Artists</h5>
+                <p class="card-text">Learn about the creators behind the songs and cocktails in our collection.</p>
+                <a asp-controller="ArtistPage" asp-action="Index" class="btn btn-outline-primary">View Artists</a>
+            </div>
+        </div>
+    </div>
 </div>

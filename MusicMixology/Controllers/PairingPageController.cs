@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MusicMixology.Data;
@@ -19,14 +20,14 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
-        // GET: PairingPage
+        // ✅ Public: View all pairings
         public async Task<IActionResult> Index()
         {
             var pairings = await _pairingService.GetAllAsync();
             return View(pairings);
         }
 
-        // GET: PairingPage/Details/5
+        // ✅ Public: View pairing details
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _pairingService.GetByIdAsync(id);
@@ -44,8 +45,8 @@ namespace MusicMixology.Controllers
 
             return View(vm);
         }
-
-        // GET: PairingPage/Create
+        [Authorize(Roles = "Admin")]
+        // ✅ Public or [Authorize] if you want only logged-in users to suggest
         public async Task<IActionResult> Create()
         {
             var vm = new PairingViewModel
@@ -56,9 +57,9 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // POST: PairingPage/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(PairingViewModel vm)
         {
             if (!ModelState.IsValid)
@@ -79,7 +80,8 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: PairingPage/Edit/5
+        // 🔐 Admin-only: Edit pairing
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var dto = await _pairingService.GetByIdAsync(id);
@@ -98,9 +100,9 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // POST: PairingPage/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, PairingViewModel vm)
         {
             if (id != vm.PairingId) return NotFound();
@@ -126,7 +128,8 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: PairingPage/Delete/5
+        // 🔐 Admin-only: Delete pairing
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var dto = await _pairingService.GetByIdAsync(id);
@@ -143,9 +146,9 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // POST: PairingPage/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var deleted = await _pairingService.DeleteAsync(id);
@@ -154,7 +157,7 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔧 Dropdown Helpers
+        // 🔧 Dropdown helpers
         private async Task<List<SelectListItem>> GetCocktailDropdown(int? selectedId = null)
         {
             return await _context.Cocktails

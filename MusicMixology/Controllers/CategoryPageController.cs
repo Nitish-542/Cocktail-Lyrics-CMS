@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MusicMixology.Interfaces;
 using MusicMixology.Models;
 
@@ -13,22 +14,32 @@ namespace MusicMixology.Controllers
             _categoryService = categoryService;
         }
 
-        // GET: CategoryPage
+        // ✅ Public: View all categories
         public async Task<IActionResult> Index()
         {
             var categories = await _categoryService.GetAllAsync();
             return View(categories);
         }
 
-        // GET: CategoryPage/Create
+        // ✅ Public: View details
+        public async Task<IActionResult> Details(int id)
+        {
+            var dto = await _categoryService.GetByIdAsync(id);
+            if (dto == null) return NotFound();
+
+            return View(dto);
+        }
+
+        // 🔐 Admin only: Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CategoryPage/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CategoryDTO dto)
         {
             if (!ModelState.IsValid)
@@ -38,7 +49,8 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: CategoryPage/Edit/5
+        // 🔐 Admin only: Edit
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var dto = await _categoryService.GetByIdAsync(id);
@@ -47,9 +59,9 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // POST: CategoryPage/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, CategoryDTO dto)
         {
             if (id != dto.CategoryId) return NotFound();
@@ -61,16 +73,8 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: CategoryPage/Details/5
-        public async Task<IActionResult> Details(int id)
-        {
-            var dto = await _categoryService.GetByIdAsync(id);
-            if (dto == null) return NotFound();
-
-            return View(dto);
-        }
-
-        // GET: CategoryPage/Delete/5
+        // 🔐 Admin only: Delete
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var dto = await _categoryService.GetByIdAsync(id);
@@ -79,9 +83,9 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // POST: CategoryPage/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var deleted = await _categoryService.DeleteAsync(id);

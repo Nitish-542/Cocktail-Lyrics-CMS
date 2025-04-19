@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MusicMixology.Data;
@@ -19,14 +20,14 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
-        // GET: SongPage
+        // ✅ Public: View all songs
         public async Task<IActionResult> Index()
         {
             var songs = await _songService.GetAllAsync();
             return View(songs);
         }
 
-        // GET: SongPage/Details/5
+        // ✅ Public: View song details
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _songService.GetByIdAsync(id);
@@ -34,16 +35,18 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // GET: SongPage/Create
+        // 🔐 Admin only: GET Create
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             var vm = await BuildSongViewModelAsync();
             return View(vm);
         }
 
-        // POST: SongPage/Create
+        // 🔐 Admin only: POST Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(SongViewModel vm)
         {
             if (!ModelState.IsValid)
@@ -64,7 +67,8 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: SongPage/Edit/5
+        // 🔐 Admin only: GET Edit
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var dto = await _songService.GetByIdAsync(id);
@@ -74,9 +78,10 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // POST: SongPage/Edit/5
+        // 🔐 Admin only: POST Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, SongViewModel vm)
         {
             if (id != vm.SongId) return NotFound();
@@ -111,7 +116,8 @@ namespace MusicMixology.Controllers
             }
         }
 
-        // GET: SongPage/Delete/5
+        // 🔐 Admin only: GET Delete
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var dto = await _songService.GetByIdAsync(id);
@@ -120,9 +126,10 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // POST: SongPage/Delete/5
+        // 🔐 Admin only: POST Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var deleted = await _songService.DeleteAsync(id);
@@ -131,8 +138,7 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-        // Helper: Build full SongViewModel from DTO
+        // 🔧 Build SongViewModel from DTO
         private async Task<SongViewModel> BuildSongViewModelAsync(SongDTO? dto = null)
         {
             return new SongViewModel
@@ -151,7 +157,7 @@ namespace MusicMixology.Controllers
             };
         }
 
-        // Helper: Populate dropdowns for failed validation return
+        // 🔧 Populate dropdowns
         private async Task LoadDropdownsAsync(SongViewModel vm)
         {
             vm.ArtistList = await _context.Artists
