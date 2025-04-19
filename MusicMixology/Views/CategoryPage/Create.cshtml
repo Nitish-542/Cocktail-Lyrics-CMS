@@ -1,26 +1,37 @@
 ﻿@model MusicMixology.ViewModels.CategoryViewModel
 
 @{
+    // Set the title of the page for the Create Category form
     ViewData["Title"] = "Create Category";
 }
 
 <h2>Create Category</h2>
 
+<!-- Form for creating a new category -->
 <form asp-action="Create" method="post">
+    <!-- Anti-forgery token to prevent CSRF attacks -->
     @Html.AntiForgeryToken()
 
+    <!-- Input field for the category name -->
     <div class="form-group">
+        <!-- Label for category name field -->
         <label asp-for="CategoryName"></label>
+        <!-- Text input for category name -->
         <input asp-for="CategoryName" class="form-control" />
+        <!-- Validation message for category name -->
         <span asp-validation-for="CategoryName" class="text-danger"></span>
     </div>
 
+    <!-- Submit button to create the new category -->
     <button type="submit" class="btn btn-success">Create</button>
+    
+    <!-- Link to go back to the category list -->
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </form>
 
 @section Scripts {
     @{
+        // Render validation scripts for client-side validation
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

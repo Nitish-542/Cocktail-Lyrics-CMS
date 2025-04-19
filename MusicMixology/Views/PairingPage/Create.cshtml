@@ -1,39 +1,47 @@
 ﻿@model MusicMixology.ViewModels.PairingViewModel
+
 @{
     ViewData["Title"] = "Create Pairing";
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
+<!-- Form to create a new pairing -->
 <form asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken() <!-- Anti-forgery token for security -->
 
+    <!-- Cocktail selection dropdown -->
     <div class="mb-3">
         <label asp-for="CocktailId" class="form-label"></label>
         <select asp-for="CocktailId" class="form-control" asp-items="Model.CocktailList">
             <option value="">-- Select Cocktail --</option>
         </select>
-        <span asp-validation-for="CocktailId" class="text-danger"></span>
+        <span asp-validation-for="CocktailId" class="text-danger"></span> <!-- Validation message for CocktailId -->
     </div>
 
+    <!-- Song selection dropdown -->
     <div class="mb-3">
         <label asp-for="SongId" class="form-label"></label>
         <select asp-for="SongId" class="form-control" asp-items="Model.SongList">
             <option value="">-- Select Song --</option>
         </select>
-        <span asp-validation-for="SongId" class="text-danger"></span>
+        <span asp-validation-for="SongId" class="text-danger"></span> <!-- Validation message for SongId -->
     </div>
 
+    <!-- Mood category input -->
     <div class="mb-3">
         <label asp-for="MoodCategory" class="form-label"></label>
         <input asp-for="MoodCategory" class="form-control" />
-        <span asp-validation-for="MoodCategory" class="text-danger"></span>
+        <span asp-validation-for="MoodCategory" class="text-danger"></span> <!-- Validation message for MoodCategory -->
     </div>
 
+    <!-- Submit button to create the pairing -->
     <button type="submit" class="btn btn-success">Create</button>
+
+    <!-- Cancel button, redirects to the Index page -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} <!-- Render validation scripts for client-side validation -->
 }

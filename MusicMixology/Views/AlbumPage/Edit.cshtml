@@ -1,34 +1,43 @@
 ﻿@model MusicMixology.ViewModels.AlbumViewModel
+
 @{
+    // Sets the page title to "Edit Album"
     ViewData["Title"] = "Edit Album";
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
+<!-- Form for editing an album -->
 <form asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="AlbumId" />
+    @Html.AntiForgeryToken()  <!-- Prevents CSRF attacks -->
+    <input type="hidden" asp-for="AlbumId" /> <!-- Hidden field for the album's ID -->
 
+    <!-- Album Title input field -->
     <div class="form-group mb-3">
         <label asp-for="AlbumTitle" class="form-label"></label>
-        <input asp-for="AlbumTitle" class="form-control" />
-        <span asp-validation-for="AlbumTitle" class="text-danger"></span>
+        <input asp-for="AlbumTitle" class="form-control" /> <!-- User input for album title -->
+        <span asp-validation-for="AlbumTitle" class="text-danger"></span> <!-- Validation error message -->
     </div>
 
+    <!-- Artist selection dropdown -->
     <div class="form-group mb-4">
         <label asp-for="ArtistId" class="form-label"></label>
         <select asp-for="ArtistId" class="form-control" asp-items="Model.ArtistList">
-            <option value="">-- Select Artist --</option>
+            <option value="">-- Select Artist --</option> <!-- Placeholder option -->
         </select>
-        <span asp-validation-for="ArtistId" class="text-danger"></span>
+        <span asp-validation-for="ArtistId" class="text-danger"></span> <!-- Validation error message -->
     </div>
 
+    <!-- Submit button for saving changes -->
     <button type="submit" class="btn btn-primary">Save Changes</button>
+    
+    <!-- Cancel button to navigate back to the album index -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
     @{
+        // Loads validation scripts (e.g., client-side validation)
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

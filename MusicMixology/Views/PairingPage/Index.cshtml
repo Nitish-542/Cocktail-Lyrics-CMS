@@ -7,20 +7,23 @@
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
 <p>
+    <!-- Link to create a new cocktail-song pairing -->
     <a asp-action="Create" class="btn btn-success">Add New Pairing</a>
 </p>
 
-@if (Model.Any())
+@if (Model.Any()) // Checks if there are any pairings to display
 {
+    // Grouping the pairings by their MoodCategory
     var grouped = Model.GroupBy(p => p.MoodCategory);
 
-    foreach (var group in grouped)
+    foreach (var group in grouped) // Iterating through each mood category group
     {
-        <h4 class="mt-4">@group.Key Mood</h4>
+        <h4 class="mt-4">@group.Key Mood</h4> // Displays the mood category
 
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <!-- Table headers for Cocktail, Song, Genre, and Actions -->
                     <th>Cocktail</th>
                     <th>Song</th>
                     <th>Genre</th>
@@ -28,13 +31,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var pairing in group)
+                @foreach (var pairing in group) // Iterating through each pairing in the current mood group
                 {
                     <tr>
+                        <!-- Displaying cocktail name, song title, and song genre -->
                         <td>@pairing.Name</td>
                         <td>@pairing.Title</td>
                         <td>@pairing.Song?.Genre</td>
                         <td>
+                            <!-- Links to view, edit, and delete pairing -->
                             <a asp-action="Details" asp-route-id="@pairing.PairingId" class="btn btn-info btn-sm">Details</a>
                             <a asp-action="Edit" asp-route-id="@pairing.PairingId" class="btn btn-warning btn-sm">Edit</a>
                             <a asp-action="Delete" asp-route-id="@pairing.PairingId" class="btn btn-danger btn-sm">Delete</a>
@@ -45,7 +50,7 @@
         </table>
     }
 }
-else
+else // If no pairings are available
 {
     <div class="alert alert-info">
         No pairings available. <a asp-action="Create">Create the first one</a>!

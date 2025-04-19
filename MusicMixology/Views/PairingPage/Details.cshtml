@@ -1,20 +1,28 @@
 ﻿@model MusicMixology.ViewModels.PairingViewModel
+
 @{
+    // Set the title for the page
     ViewData["Title"] = "Pairing Details";
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
 <dl class="row">
+    <!-- Display the Cocktail name -->
     <dt class="col-sm-3">Cocktail</dt>
     <dd class="col-sm-9">@Model.CocktailName</dd>
 
+    <!-- Display the Song title -->
     <dt class="col-sm-3">Song</dt>
     <dd class="col-sm-9">@Model.SongTitle</dd>
 
+    <!-- Display the Mood category of the pairing -->
     <dt class="col-sm-3">Mood Category</dt>
     <dd class="col-sm-9">@Model.MoodCategory</dd>
 </dl>
 
+<!-- Link to the edit page for the current pairing -->
 <a asp-action="Edit" asp-route-id="@Model.PairingId" class="btn btn-warning">Edit</a>
+
+<!-- Link to navigate back to the list of pairings -->
 <a asp-action="Index" class="btn btn-secondary">Back to List</a>

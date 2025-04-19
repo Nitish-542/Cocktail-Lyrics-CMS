@@ -5,23 +5,35 @@ using MusicMixology.Models;
 
 namespace MusicMixology.Controllers
 {
+    /// <summary>
+    /// Controller for managing category pages.
+    /// Handles displaying, creating, editing, and deleting categories.
+    /// </summary>
     public class CategoryPageController : Controller
     {
         private readonly ICategoryService _categoryService;
 
+        /// <summary>
+        /// Constructor with dependency injection for the category service.
+        /// </summary>
         public CategoryPageController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
 
-        // ✅ Public: View all categories
+        /// <summary>
+        /// Public: Displays a list of all categories.
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             var categories = await _categoryService.GetAllAsync();
             return View(categories);
         }
 
-        // ✅ Public: View details
+        /// <summary>
+        /// Public: Displays details for a specific category.
+        /// </summary>
+        /// <param name="id">Category ID</param>
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _categoryService.GetByIdAsync(id);
@@ -30,13 +42,19 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // 🔐 Admin only: Create
+        /// <summary>
+        /// Admin only: Returns the create category form.
+        /// </summary>
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
+        /// <summary>
+        /// Admin only: Handles category creation.
+        /// </summary>
+        /// <param name="dto">Category data</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -49,7 +67,10 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin only: Edit
+        /// <summary>
+        /// Admin only: Returns the edit category form.
+        /// </summary>
+        /// <param name="id">Category ID</param>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -59,6 +80,11 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
+        /// <summary>
+        /// Admin only: Handles category editing.
+        /// </summary>
+        /// <param name="id">Category ID</param>
+        /// <param name="dto">Updated category data</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -73,7 +99,10 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin only: Delete
+        /// <summary>
+        /// Admin only: Returns the delete confirmation view.
+        /// </summary>
+        /// <param name="id">Category ID</param>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -83,6 +112,10 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
+        /// <summary>
+        /// Admin only: Confirms and performs category deletion.
+        /// </summary>
+        /// <param name="id">Category ID</param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]

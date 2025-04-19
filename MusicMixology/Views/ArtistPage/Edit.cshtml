@@ -1,27 +1,32 @@
 ﻿@model MusicMixology.ViewModels.ArtistViewModel
 
 @{
-    ViewData["Title"] = "Edit Artist";
+    ViewData["Title"] = "Edit Artist"; // Set the page title to "Edit Artist"
 }
 
-<h2 class="mb-4">@ViewData["Title"]</h2>
+<h2 class="mb-4">@ViewData["Title"]</h2> <!-- Display the title in an h2 tag -->
 
+<!-- Form for editing an artist's information -->
 <form asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="ArtistId" />
+    @Html.AntiForgeryToken() <!-- Prevents Cross-Site Request Forgery (CSRF) attacks -->
+    <input type="hidden" asp-for="ArtistId" /> <!-- Hidden input for the ArtistId, used for identifying the artist -->
 
+    <!-- Input field for the artist's name -->
     <div class="mb-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <label asp-for="Name" class="form-label"></label> <!-- Label for the Name field -->
+        <input asp-for="Name" class="form-control" /> <!-- Input field bound to the Name property of the ArtistViewModel -->
+        <span asp-validation-for="Name" class="text-danger"></span> <!-- Validation message for Name if there is any error -->
     </div>
 
+    <!-- Submit button to save changes -->
     <button type="submit" class="btn btn-primary">Save Changes</button>
+    
+    <!-- Cancel button to redirect back to the Index action -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
     @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); <!-- Render the validation scripts for client-side validation -->
     }
 }

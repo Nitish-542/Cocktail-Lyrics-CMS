@@ -1,20 +1,36 @@
 ﻿@model MusicMixology.Models.CocktailDTO
 
 @{
-    ViewData["Title"] = "Cocktail Details";
+    ViewData["Title"] = "Cocktail Details"; // Sets the page title to 'Cocktail Details'
 }
 
-<h2>Cocktail Details</h2>
+<h2>Cocktail Details</h2> <!-- Heading for the Cocktail Details page -->
 
+<!-- Card container for displaying cocktail details -->
 <div class="card p-3">
-    <h4>@Model.Name</h4>
+    <h4>@Model.Name</h4> <!-- Display the name of the cocktail -->
+    
+    <!-- Display the cocktail's recipe -->
     <p><strong>Recipe:</strong> @Model.Recipe</p>
+    
+    <!-- Display the liquor ingredients for the cocktail -->
     <p><strong>Liquor Ingredients:</strong> @Model.LiqIns</p>
+    
+    <!-- Display the mix ingredients for the cocktail -->
     <p><strong>Mix Ingredients:</strong> @Model.MixIns</p>
+    
+    <!-- Display the bartender's name if available -->
     <p><strong>Bartender:</strong> @Model.Bartender?.Name</p>
+    
+    <!-- Display the category name of the cocktail if available -->
     <p><strong>Category:</strong> @Model.Category?.CategoryName</p>
 
+    <!-- Button to navigate to the Edit page for the selected cocktail -->
     <a asp-action="Edit" asp-route-id="@Model.CocktailID" class="btn btn-warning">Edit</a>
+
+    <!-- Button to navigate to the Delete page for the selected cocktail -->
     <a asp-action="Delete" asp-route-id="@Model.CocktailID" class="btn btn-danger">Delete</a>
+
+    <!-- Button to navigate back to the cocktail list -->
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

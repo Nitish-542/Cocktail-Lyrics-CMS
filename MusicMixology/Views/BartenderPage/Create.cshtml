@@ -1,17 +1,25 @@
 ﻿@model MusicMixology.Models.Bartender
 
 @{
-    ViewData["Title"] = "Create Bartender";
+    ViewData["Title"] = "Create Bartender"; // Sets the page title.
 }
 
 <h2>Create New Bartender</h2>
 
+<!-- Form to create a new bartender -->
 <form asp-action="Create" method="post">
     <div class="form-group">
+        <!-- Label and input field for bartender's name -->
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
+        
+        <!-- Validation message for the Name field -->
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
+    
+    <!-- Submit button to create the bartender -->
     <button type="submit" class="btn btn-success">Create</button>
+    
+    <!-- Cancel button that redirects to the Index action -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

@@ -9,6 +9,9 @@ using MusicMixology.ViewModels;
 
 namespace MusicMixology.Controllers
 {
+    /// <summary>
+    /// MVC Controller for managing album views and CRUD operations via web pages.
+    /// </summary>
     public class AlbumPageController : Controller
     {
         private readonly IAlbumService _albumService;
@@ -20,14 +23,19 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
-        // ✅ Anyone can view the album list
+        /// <summary>
+        /// Displays a list of all albums. Public access.
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             var albums = await _albumService.GetAllAsync();
             return View(albums);
         }
 
-        // ✅ Anyone can view album details
+        /// <summary>
+        /// Displays details for a specific album by ID. Public access.
+        /// </summary>
+        /// <param name="id">Album ID</param>
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _albumService.GetByIdAsync(id);
@@ -36,7 +44,9 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // ✅ Only Admins can access Create
+        /// <summary>
+        /// Displays album creation form. Admin-only access.
+        /// </summary>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
@@ -47,7 +57,10 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // ✅ Only Admins can submit Create
+        /// <summary>
+        /// Handles album creation form submission. Admin-only access.
+        /// </summary>
+        /// <param name="vm">Album view model</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -69,7 +82,10 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ✅ Only Admins can access Edit
+        /// <summary>
+        /// Displays album edit form. Admin-only access.
+        /// </summary>
+        /// <param name="id">Album ID</param>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -87,7 +103,11 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // ✅ Only Admins can submit Edit
+        /// <summary>
+        /// Handles album edit form submission. Admin-only access.
+        /// </summary>
+        /// <param name="id">Album ID</param>
+        /// <param name="vm">Updated album view model</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -114,7 +134,10 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ✅ Only Admins can access Delete
+        /// <summary>
+        /// Displays album deletion confirmation page. Admin-only access.
+        /// </summary>
+        /// <param name="id">Album ID</param>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -124,7 +147,10 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // ✅ Only Admins can submit Delete
+        /// <summary>
+        /// Handles album deletion. Admin-only access.
+        /// </summary>
+        /// <param name="id">Album ID</param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -136,7 +162,9 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔧 Helper
+        /// <summary>
+        /// Helper method to create a list of artists for dropdown selection in views.
+        /// </summary>
         private async Task<List<SelectListItem>> GetArtistSelectListAsync()
         {
             return await _context.Artists

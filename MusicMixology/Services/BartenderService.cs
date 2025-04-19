@@ -6,15 +6,27 @@ using MusicMixology.ViewModels;
 
 namespace MusicMixology.Services
 {
+    /// <summary>
+    /// Service class for performing CRUD operations and queries related to bartenders.
+    /// Implements the IBartenderService interface.
+    /// </summary>
     public class BartenderService : IBartenderService
     {
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Constructor that injects the application's database context.
+        /// </summary>
+        /// <param name="context">The application's database context.</param>
         public BartenderService(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Retrieves all bartenders from the database.
+        /// </summary>
+        /// <returns>A collection of BartenderDto objects.</returns>
         public async Task<IEnumerable<BartenderDto>> GetAllAsync()
         {
             return await _context.Bartenders
@@ -26,6 +38,11 @@ namespace MusicMixology.Services
                 .ToListAsync();
         }
 
+        /// <summary>
+        /// Retrieves a bartender by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the bartender.</param>
+        /// <returns>A BartenderDto if found, otherwise null.</returns>
         public async Task<BartenderDto?> GetByIdAsync(int id)
         {
             var b = await _context.Bartenders.FindAsync(id);
@@ -38,6 +55,11 @@ namespace MusicMixology.Services
             };
         }
 
+        /// <summary>
+        /// Creates a new bartender entry in the database.
+        /// </summary>
+        /// <param name="dto">The DTO containing bartender data.</param>
+        /// <returns>The created BartenderDto with assigned ID.</returns>
         public async Task<BartenderDto> CreateAsync(BartenderDto dto)
         {
             var bartender = new Bartender { Name = dto.Name };
@@ -48,6 +70,12 @@ namespace MusicMixology.Services
             return dto;
         }
 
+        /// <summary>
+        /// Updates an existing bartender's information.
+        /// </summary>
+        /// <param name="id">The ID of the bartender to update.</param>
+        /// <param name="dto">The updated BartenderDto object.</param>
+        /// <returns>True if update is successful, otherwise false.</returns>
         public async Task<bool> UpdateAsync(int id, BartenderDto dto)
         {
             if (id != dto.BartenderId)
@@ -64,6 +92,11 @@ namespace MusicMixology.Services
             return true;
         }
 
+        /// <summary>
+        /// Deletes a bartender by their ID.
+        /// </summary>
+        /// <param name="id">The ID of the bartender to delete.</param>
+        /// <returns>True if deletion is successful, otherwise false.</returns>
         public async Task<bool> DeleteAsync(int id)
         {
             var bartender = await _context.Bartenders.FindAsync(id);
@@ -75,6 +108,12 @@ namespace MusicMixology.Services
 
             return true;
         }
+
+        /// <summary>
+        /// Retrieves a bartender along with the list of cocktails they make.
+        /// </summary>
+        /// <param name="id">The ID of the bartender.</param>
+        /// <returns>A BartenderViewModel with cocktail details if found, otherwise null.</returns>
         public async Task<BartenderViewModel?> GetDetailsWithCocktailsAsync(int id)
         {
             var bartender = await _context.Bartenders

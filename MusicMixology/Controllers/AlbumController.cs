@@ -4,18 +4,23 @@ using MusicMixology.Models;
 
 namespace MusicMixology.ApiControllers
 {
+    // API controller for managing album-related actions.
     [Route("api/albums")]
     [ApiController]
     public class AlbumController : ControllerBase
     {
         private readonly IAlbumService _service;
 
+        // Constructor with dependency injection for album service.
         public AlbumController(IAlbumService service)
         {
             _service = service;
         }
 
-        // GET: api/albums
+        /// <summary>
+        /// Retrieves a list of all albums.
+        /// </summary>
+        /// <returns>List of AlbumDTO objects.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AlbumDTO>>> GetAlbums()
         {
@@ -23,7 +28,11 @@ namespace MusicMixology.ApiControllers
             return Ok(albums);
         }
 
-        // GET: api/albums/5
+        /// <summary>
+        /// Retrieves a single album by its ID.
+        /// </summary>
+        /// <param name="id">Album ID</param>
+        /// <returns>AlbumDTO object if found; otherwise, NotFound.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<AlbumDTO>> GetAlbum(int id)
         {
@@ -32,7 +41,11 @@ namespace MusicMixology.ApiControllers
             return Ok(album);
         }
 
-        // POST: api/albums
+        /// <summary>
+        /// Creates a new album.
+        /// </summary>
+        /// <param name="dto">Album data transfer object.</param>
+        /// <returns>Created AlbumDTO object with location header.</returns>
         [HttpPost]
         public async Task<ActionResult<AlbumDTO>> PostAlbum(AlbumDTO dto)
         {
@@ -40,7 +53,12 @@ namespace MusicMixology.ApiControllers
             return CreatedAtAction(nameof(GetAlbum), new { id = result.AlbumId }, result);
         }
 
-        // PUT: api/albums/5
+        /// <summary>
+        /// Updates an existing album by ID.
+        /// </summary>
+        /// <param name="id">Album ID</param>
+        /// <param name="dto">Updated AlbumDTO object.</param>
+        /// <returns>NoContent if successful; otherwise, NotFound.</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAlbum(int id, AlbumDTO dto)
         {
@@ -49,7 +67,11 @@ namespace MusicMixology.ApiControllers
             return NoContent();
         }
 
-        // DELETE: api/albums/5
+        /// <summary>
+        /// Deletes an album by ID.
+        /// </summary>
+        /// <param name="id">Album ID</param>
+        /// <returns>NoContent if successful; otherwise, NotFound.</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAlbum(int id)
         {

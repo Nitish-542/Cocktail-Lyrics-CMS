@@ -1,18 +1,26 @@
 ﻿@model MusicMixology.Models.AlbumDTO
+
 @{
+    // Sets the page title in the layout
     ViewData["Title"] = "Album Details";
 }
 
+<!-- Displays the album title as a heading -->
 <h2 class="mb-3">@Model.AlbumTitle</h2>
 
+<!-- Displays the album artist -->
 <dl class="row">
     <dt class="col-sm-2">Artist</dt>
     <dd class="col-sm-10">@Model.ArtistName</dd>
 </dl>
 
+<!-- Conditionally renders the songs table if the album contains any songs -->
 @if (Model.Songs != null && Model.Songs.Any())
 {
+    <!-- Songs section title -->
     <h4 class="mt-4">Songs in this Album</h4>
+
+    <!-- Table displaying each song's title, artist, and genre -->
     <table class="table table-sm table-bordered mt-2">
         <thead>
             <tr>
@@ -35,8 +43,12 @@
 }
 else
 {
+    <!-- Message shown when no songs are available for the album -->
     <p><em>No songs found for this album.</em></p>
 }
 
+<!-- Button to navigate to the edit page for the album -->
 <a asp-action="Edit" asp-route-id="@Model.AlbumId" class="btn btn-warning mt-3">Edit</a>
+
+<!-- Button to return to the album list -->
 <a asp-action="Index" class="btn btn-secondary mt-3">Back to List</a>

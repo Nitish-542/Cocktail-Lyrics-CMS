@@ -3,6 +3,7 @@
 <h2 class="mb-4">Albums</h2>
 
 <p>
+    <!-- Link to create a new album -->
     <a asp-action="Create" class="btn btn-success">Add New Album</a>
 </p>
 
@@ -16,15 +17,22 @@
         </tr>
     </thead>
     <tbody>
+        <!-- Loop through each album in the model and display its information -->
         @foreach (var album in Model)
         {
             <tr>
+                <!-- Display album title -->
                 <td>@album.AlbumTitle</td>
+                
+                <!-- Display album artist -->
                 <td>@album.ArtistName</td>
+                
+                <!-- Display songs under the album if available -->
                 <td>
                     @if (album.Songs.Any())
                     {
                         <ul class="mb-0 ps-3">
+                            <!-- Loop through each song in the album and display its title and genre -->
                             @foreach (var song in album.Songs)
                             {
                                 <li>@song.Title (@song.Genre)</li>
@@ -33,10 +41,13 @@
                     }
                     else
                     {
+                        <!-- Display message if no songs are available for this album -->
                         <em>No songs</em>
                     }
                 </td>
+                
                 <td>
+                    <!-- Action buttons for Details, Edit, and Delete for each album -->
                     <a asp-action="Details" asp-route-id="@album.AlbumId" class="btn btn-info btn-sm">Details</a>
                     <a asp-action="Edit" asp-route-id="@album.AlbumId" class="btn btn-warning btn-sm">Edit</a>
                     <a asp-action="Delete" asp-route-id="@album.AlbumId" class="btn btn-danger btn-sm">Delete</a>
