@@ -1,13 +1,16 @@
 ﻿@model IEnumerable<MusicMixology.Models.CategoryDTO>
 
 @{
+    // Setting the title of the view page
     ViewData["Title"] = "Category List";
 }
 
 <h2>Category List</h2>
 
+<!-- Button to navigate to create a new category -->
 <a asp-action="Create" class="btn btn-success mb-3">Add New Category</a>
 
+<!-- Table displaying the list of categories -->
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -16,11 +19,12 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var category in Model)
+        @foreach (var category in Model) // Loop through each category in the model
         {
             <tr>
-                <td>@category.CategoryName</td>
+                <td>@category.CategoryName</td> <!-- Display the category name -->
                 <td>
+                    <!-- Action buttons for Edit, Details, and Delete operations -->
                     <a asp-action="Edit" asp-route-id="@category.CategoryId" class="btn btn-sm btn-warning">Edit</a>
                     <a asp-action="Details" asp-route-id="@category.CategoryId" class="btn btn-sm btn-info">Details</a>
                     <a asp-action="Delete" asp-route-id="@category.CategoryId" class="btn btn-sm btn-danger">Delete</a>

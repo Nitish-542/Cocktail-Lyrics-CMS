@@ -9,6 +9,9 @@ using MusicMixology.Data;
 
 namespace MusicMixology.Controllers
 {
+    /// <summary>
+    /// MVC controller for handling cocktail listing, details, and admin CRUD operations.
+    /// </summary>
     public class CocktailPageController : Controller
     {
         private readonly ICocktailService _cocktailService;
@@ -20,7 +23,12 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
-        // ✅ Everyone can view cocktails
+        /// <summary>
+        /// Displays a list of cocktails with optional filtering by category and bartender.
+        /// </summary>
+        /// <param name="SelectedCategoryId">Optional filter for category ID</param>
+        /// <param name="SelectedBartenderId">Optional filter for bartender ID</param>
+        /// <returns>View with CocktailListViewModel</returns>
         public async Task<IActionResult> Index(int? SelectedCategoryId, int? SelectedBartenderId)
         {
             var cocktails = await _cocktailService.GetAllAsync();
@@ -53,7 +61,11 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // ✅ Everyone can view details
+        /// <summary>
+        /// Displays details of a specific cocktail.
+        /// </summary>
+        /// <param name="id">Cocktail ID</param>
+        /// <returns>View with CocktailDTO if found; otherwise, NotFound</returns>
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _cocktailService.GetByIdAsync(id);
@@ -62,7 +74,9 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // 🔐 Admin only: Create
+        /// <summary>
+        /// Displays the create cocktail form (Admin only).
+        /// </summary>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
@@ -70,6 +84,10 @@ namespace MusicMixology.Controllers
             return View(new CocktailDTO());
         }
 
+        /// <summary>
+        /// Handles form submission for creating a new cocktail (Admin only).
+        /// </summary>
+        /// <param name="dto">Cocktail data</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -85,7 +103,10 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin only: Edit
+        /// <summary>
+        /// Displays the edit cocktail form with pre-filled data (Admin only).
+        /// </summary>
+        /// <param name="id">Cocktail ID</param>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -96,6 +117,11 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
+        /// <summary>
+        /// Handles form submission for editing a cocktail (Admin only).
+        /// </summary>
+        /// <param name="id">Cocktail ID</param>
+        /// <param name="dto">Updated cocktail data</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -113,7 +139,10 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin only: Delete
+        /// <summary>
+        /// Displays confirmation page for deleting a cocktail (Admin only).
+        /// </summary>
+        /// <param name="id">Cocktail ID</param>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -123,6 +152,10 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
+        /// <summary>
+        /// Handles the deletion of a cocktail (Admin only).
+        /// </summary>
+        /// <param name="id">Cocktail ID</param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -134,7 +167,11 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔧 Helper
+        /// <summary>
+        /// Helper method to populate dropdown lists for categories and bartenders.
+        /// </summary>
+        /// <param name="selectedCategoryId">Selected category (optional)</param>
+        /// <param name="selectedBartenderId">Selected bartender (optional)</param>
         private async Task LoadDropdownsAsync(int? selectedCategoryId = null, int? selectedBartenderId = null)
         {
             ViewBag.Categories = new SelectList(

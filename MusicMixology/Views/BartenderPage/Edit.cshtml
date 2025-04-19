@@ -1,26 +1,39 @@
 ﻿@model MusicMixology.Models.BartenderDto
+
 @{
+    // Setting the page title for the view.
     ViewData["Title"] = "Edit Bartender";
 }
 
 <h2>Edit Bartender</h2>
 
+<!-- Form to edit the bartender details -->
 <form asp-action="Edit" method="post">
+    <!-- Anti-forgery token to prevent CSRF attacks -->
     @Html.AntiForgeryToken()
+    
+    <!-- Hidden field to hold the Bartender ID -->
     <input type="hidden" asp-for="BartenderId" />
 
+    <!-- Form field for the bartender's name -->
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
         <input asp-for="Name" class="form-control" />
+        
+        <!-- Validation message for Name field -->
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
+    <!-- Submit button to save the changes -->
     <button type="submit" class="btn btn-primary">Save</button>
+    
+    <!-- Cancel button to navigate back to the Index page -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
     @{
+        // Rendering the validation script partial for client-side validation
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

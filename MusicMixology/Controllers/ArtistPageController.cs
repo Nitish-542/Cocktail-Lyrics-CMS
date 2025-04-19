@@ -8,18 +8,27 @@ using MusicMixology.ViewModels;
 
 namespace MusicMixology.Controllers
 {
+    /// <summary>
+    /// Controller for handling artist-related pages and operations.
+    /// </summary>
     public class ArtistPageController : Controller
     {
         private readonly IArtistService _artistService;
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArtistPageController"/> class.
+        /// </summary>
         public ArtistPageController(IArtistService artistService, ApplicationDbContext context)
         {
             _artistService = artistService;
             _context = context;
         }
 
-        // ✅ Everyone can view the list of artists
+        /// <summary>
+        /// Displays a list of all artists with their albums and songs.
+        /// </summary>
+        /// <returns>A view containing a list of artists.</returns>
         public async Task<IActionResult> Index()
         {
             var artists = await _context.Artists
@@ -52,7 +61,11 @@ namespace MusicMixology.Controllers
             return View(viewModels);
         }
 
-        // ✅ Everyone can view artist details
+        /// <summary>
+        /// Displays details for a specific artist.
+        /// </summary>
+        /// <param name="id">The ID of the artist.</param>
+        /// <returns>A view containing artist details, or NotFound if not found.</returns>
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _artistService.GetByIdAsync(id);
@@ -88,14 +101,21 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // ✅ Admin-only: GET Create
+        /// <summary>
+        /// Displays the form for creating a new artist (Admin only).
+        /// </summary>
+        /// <returns>A view with an empty artist form.</returns>
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View(new ArtistViewModel());
         }
 
-        // ✅ Admin-only: POST Create
+        /// <summary>
+        /// Handles the POST request to create a new artist (Admin only).
+        /// </summary>
+        /// <param name="vm">The artist view model.</param>
+        /// <returns>Redirects to Index if successful; otherwise, returns the form view with validation messages.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -112,7 +132,11 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ✅ Admin-only: GET Edit
+        /// <summary>
+        /// Displays the form to edit an existing artist (Admin only).
+        /// </summary>
+        /// <param name="id">The ID of the artist to edit.</param>
+        /// <returns>A view pre-filled with artist data, or NotFound if not found.</returns>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -128,7 +152,12 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // ✅ Admin-only: POST Edit
+        /// <summary>
+        /// Handles the POST request to update an artist (Admin only).
+        /// </summary>
+        /// <param name="id">The ID of the artist being edited.</param>
+        /// <param name="vm">The updated artist view model.</param>
+        /// <returns>Redirects to Index if successful; otherwise, shows validation messages.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -149,7 +178,11 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ✅ Admin-only: GET Delete
+        /// <summary>
+        /// Displays the confirmation page for deleting an artist (Admin only).
+        /// </summary>
+        /// <param name="id">The ID of the artist to delete.</param>
+        /// <returns>A view showing artist details for confirmation.</returns>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -159,7 +192,11 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // ✅ Admin-only: POST Delete
+        /// <summary>
+        /// Handles the confirmed delete operation (Admin only).
+        /// </summary>
+        /// <param name="id">The ID of the artist to delete.</param>
+        /// <returns>Redirects to Index if successful; otherwise, NotFound.</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]

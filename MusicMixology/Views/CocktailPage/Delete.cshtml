@@ -1,16 +1,26 @@
 ﻿@model MusicMixology.Models.CocktailDTO
 
+<!-- Header section to display the page title -->
 <h2>Delete Cocktail</h2>
 
 <div>
+    <!-- Prompting the user for confirmation before deleting the cocktail -->
     <h4>Are you sure you want to delete this cocktail?</h4>
+    
+    <!-- Displaying the details of the cocktail to be deleted -->
     <p><strong>@Model.Name</strong></p>
     <p>Category: @Model.Category?.CategoryName</p>
     <p>Bartender: @Model.Bartender?.Name</p>
 
+    <!-- Form to submit the delete request -->
     <form asp-action="Delete" method="post">
+        <!-- Hidden field to pass the CocktailID for deletion -->
         <input type="hidden" asp-for="CocktailID" />
+        
+        <!-- Submit button to confirm the delete action -->
         <button type="submit" class="btn btn-danger">Delete</button>
+        
+        <!-- Link to cancel the delete action and return to the Index page -->
         <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>
 </div>

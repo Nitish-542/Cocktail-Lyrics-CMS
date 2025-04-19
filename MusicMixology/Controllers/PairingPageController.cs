@@ -14,20 +14,27 @@ namespace MusicMixology.Controllers
         private readonly ICocktailSongPairingService _pairingService;
         private readonly ApplicationDbContext _context;
 
+        // Constructor injecting services for cocktail-song pairing and database context.
         public PairingPageController(ICocktailSongPairingService pairingService, ApplicationDbContext context)
         {
             _pairingService = pairingService;
             _context = context;
         }
 
-        // ✅ Public: View all pairings
+        /// <summary>
+        /// Displays all cocktail-song pairings.
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             var pairings = await _pairingService.GetAllAsync();
             return View(pairings);
         }
 
-        // ✅ Public: View pairing details
+        /// <summary>
+        /// Displays details of a specific pairing based on ID.
+        /// </summary>
+        /// <param name="id">The pairing's unique identifier.</param>
+        /// <returns>View with pairing details or NotFound if not found.</returns>
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _pairingService.GetByIdAsync(id);
@@ -45,8 +52,11 @@ namespace MusicMixology.Controllers
 
             return View(vm);
         }
+
+        /// <summary>
+        /// Allows admins to create a new cocktail-song pairing.
+        /// </summary>
         [Authorize(Roles = "Admin")]
-        // ✅ Public or [Authorize] if you want only logged-in users to suggest
         public async Task<IActionResult> Create()
         {
             var vm = new PairingViewModel
@@ -57,6 +67,9 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
+        /// <summary>
+        /// Handles the form submission for creating a new pairing.
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -80,7 +93,9 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin-only: Edit pairing
+        /// <summary>
+        /// Allows admins to edit an existing pairing.
+        /// </summary>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -100,6 +115,9 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
+        /// <summary>
+        /// Handles the form submission for editing an existing pairing.
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -128,7 +146,9 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin-only: Delete pairing
+        /// <summary>
+        /// Allows admins to delete an existing pairing.
+        /// </summary>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -146,6 +166,9 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
+        /// <summary>
+        /// Confirms the deletion of a pairing.
+        /// </summary>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -157,7 +180,7 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔧 Dropdown helpers
+        // 🔧 Helper methods for generating dropdown lists for cocktails and songs
         private async Task<List<SelectListItem>> GetCocktailDropdown(int? selectedId = null)
         {
             return await _context.Cocktails

@@ -1,13 +1,19 @@
 ﻿@model MusicMixology.Models.CategoryDTO
+
 @{
+    // Sets the title of the page for use in the browser tab or title section.
     ViewData["Title"] = "Category Details";
 }
 
 <h2 class="mb-4">Category Details</h2>
 
 <div class="mb-3">
+    <!-- Displays the category name from the model -->
     <strong>Category Name:</strong> @Model.CategoryName
 </div>
 
+<!-- Button that links to the Edit action for the category with the corresponding CategoryId -->
 <a asp-action="Edit" asp-route-id="@Model.CategoryId" class="btn btn-warning">Edit</a>
+
+<!-- Button that links back to the index/list of categories -->
 <a asp-action="Index" class="btn btn-secondary">Back to List</a>

@@ -1,26 +1,33 @@
 ﻿@model MusicMixology.ViewModels.ArtistViewModel
 
 @{
+    // Sets the page title for the view
     ViewData["Title"] = "Create Artist";
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
+<!-- Form for creating a new artist -->
 <form asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken()  <!-- Generates a token to protect against cross-site request forgery (CSRF) attacks -->
 
+    <!-- Input field for Artist's Name -->
     <div class="mb-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
+        <label asp-for="Name" class="form-label"></label>  <!-- Label for the Name field -->
+        <input asp-for="Name" class="form-control" />  <!-- Input field for the Name -->
+        <!-- Validation error message for the Name field -->
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
+    <!-- Submit button to create the artist -->
     <button type="submit" class="btn btn-success">Create</button>
+    <!-- Link to cancel and navigate back to the Index page -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
     @{
+        // Render the partial view for client-side validation scripts
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

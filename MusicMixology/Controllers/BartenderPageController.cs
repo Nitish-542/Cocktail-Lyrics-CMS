@@ -6,23 +6,37 @@ using MusicMixology.ViewModels;
 
 namespace MusicMixology.Controllers
 {
+    /// <summary>
+    /// Controller for handling bartender-related views and actions.
+    /// </summary>
     public class BartenderPageController : Controller
     {
         private readonly IBartenderService _bartenderService;
 
+        /// <summary>
+        /// Constructor with dependency injection for the bartender service.
+        /// </summary>
+        /// <param name="bartenderService">Service to manage bartender data.</param>
         public BartenderPageController(IBartenderService bartenderService)
         {
             _bartenderService = bartenderService;
         }
 
-        // ✅ Public access
+        /// <summary>
+        /// Displays a list of all bartenders.
+        /// Public access.
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             var bartenders = await _bartenderService.GetAllAsync();
             return View(bartenders);
         }
 
-        // ✅ Public access
+        /// <summary>
+        /// Displays detailed view of a specific bartender and their cocktails.
+        /// Public access.
+        /// </summary>
+        /// <param name="id">Bartender ID.</param>
         public async Task<IActionResult> Details(int id)
         {
             var vm = await _bartenderService.GetDetailsWithCocktailsAsync(id);
@@ -31,14 +45,21 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // 🔐 Admin only
+        /// <summary>
+        /// Shows the form to create a new bartender.
+        /// Admin access only.
+        /// </summary>
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // 🔐 Admin only
+        /// <summary>
+        /// Processes the creation of a new bartender.
+        /// Admin access only.
+        /// </summary>
+        /// <param name="dto">Data for the new bartender.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -51,7 +72,11 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin only
+        /// <summary>
+        /// Shows the form to edit an existing bartender.
+        /// Admin access only.
+        /// </summary>
+        /// <param name="id">Bartender ID.</param>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -61,7 +86,12 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // 🔐 Admin only
+        /// <summary>
+        /// Processes updates to an existing bartender.
+        /// Admin access only.
+        /// </summary>
+        /// <param name="id">Bartender ID.</param>
+        /// <param name="dto">Updated bartender data.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -78,7 +108,11 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin only
+        /// <summary>
+        /// Shows confirmation page for deleting a bartender.
+        /// Admin access only.
+        /// </summary>
+        /// <param name="id">Bartender ID.</param>
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -88,7 +122,11 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // 🔐 Admin only
+        /// <summary>
+        /// Processes the deletion of a bartender.
+        /// Admin access only.
+        /// </summary>
+        /// <param name="id">Bartender ID.</param>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
