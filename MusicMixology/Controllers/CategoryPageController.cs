@@ -14,10 +14,20 @@ namespace MusicMixology.Controllers
             _categoryService = categoryService;
         }
 
-        // ✅ Public: View all categories
-        public async Task<IActionResult> Index()
+        // ✅ Public: View all categories (with search)
+        public async Task<IActionResult> Index(string? searchTerm)
         {
             var categories = await _categoryService.GetAllAsync();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                categories = categories
+                    .Where(c => c.CategoryName.ToLower().Contains(searchTerm))
+                    .ToList();
+            }
+
+            ViewBag.SearchTerm = searchTerm;
             return View(categories);
         }
 

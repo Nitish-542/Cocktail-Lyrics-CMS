@@ -20,14 +20,23 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
-        // ✅ Public: View all songs
-        public async Task<IActionResult> Index()
+        // ✅ Public: View all songs (with search)
+        public async Task<IActionResult> Index(string? searchTerm)
         {
             var songs = await _songService.GetAllAsync();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                songs = songs.Where(s =>
+                    s.Title.ToLower().Contains(searchTerm) ||
+                    s.Genre.ToLower().Contains(searchTerm)
+                ).ToList();
+            }
+
             return View(songs);
         }
 
-        // ✅ Public: View song details
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _songService.GetByIdAsync(id);
@@ -35,7 +44,6 @@ namespace MusicMixology.Controllers
             return View(dto);
         }
 
-        // 🔐 Admin only: GET Create
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
@@ -43,7 +51,6 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // 🔐 Admin only: POST Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -67,7 +74,6 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin only: GET Edit
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -78,7 +84,6 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        // 🔐 Admin only: POST Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -110,23 +115,20 @@ namespace MusicMixology.Controllers
             }
             catch
             {
-                ModelState.AddModelError(string.Empty, "An unexpected error occurred. Please try again.");
+                ModelState.AddModelError(string.Empty, "An unexpected error occurred.");
                 await LoadDropdownsAsync(vm);
                 return View(vm);
             }
         }
 
-        // 🔐 Admin only: GET Delete
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var dto = await _songService.GetByIdAsync(id);
             if (dto == null) return NotFound();
-
             return View(dto);
         }
 
-        // 🔐 Admin only: POST Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -138,7 +140,6 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔧 Build SongViewModel from DTO
         private async Task<SongViewModel> BuildSongViewModelAsync(SongDTO? dto = null)
         {
             return new SongViewModel
@@ -157,7 +158,6 @@ namespace MusicMixology.Controllers
             };
         }
 
-        // 🔧 Populate dropdowns
         private async Task LoadDropdownsAsync(SongViewModel vm)
         {
             vm.ArtistList = await _context.Artists

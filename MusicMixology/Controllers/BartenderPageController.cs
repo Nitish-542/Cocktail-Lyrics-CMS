@@ -15,10 +15,20 @@ namespace MusicMixology.Controllers
             _bartenderService = bartenderService;
         }
 
-        // ✅ Public access
-        public async Task<IActionResult> Index()
+        // ✅ Public access with search
+        public async Task<IActionResult> Index(string? searchTerm)
         {
             var bartenders = await _bartenderService.GetAllAsync();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                bartenders = bartenders
+                    .Where(b => b.Name.ToLower().Contains(searchTerm))
+                    .ToList();
+            }
+
+            ViewBag.SearchTerm = searchTerm;
             return View(bartenders);
         }
 

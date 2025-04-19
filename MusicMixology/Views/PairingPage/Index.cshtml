@@ -6,6 +6,15 @@
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
+<!-- 🔍 Search Form -->
+<form method="get" class="mb-4 d-flex gap-2">
+    <input type="text" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
+           class="form-control w-25" placeholder="Search by mood, cocktail, or song" />
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+</form>
+
+<!-- Add Button -->
 <p>
     <a asp-action="Create" class="btn btn-success">Add New Pairing</a>
 </p>

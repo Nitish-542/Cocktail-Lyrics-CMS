@@ -20,10 +20,22 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
-        // ✅ Public: View all pairings
-        public async Task<IActionResult> Index()
+        // ✅ Public: View all pairings + search
+        public async Task<IActionResult> Index(string searchTerm)
         {
             var pairings = await _pairingService.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                pairings = pairings
+                    .Where(p =>
+                        (p.Name?.ToLower().Contains(searchTerm) ?? false) ||
+                        (p.Title?.ToLower().Contains(searchTerm) ?? false) ||
+                        (p.MoodCategory?.ToLower().Contains(searchTerm) ?? false))
+                    .ToList();
+            }
+
             return View(pairings);
         }
 
@@ -45,8 +57,9 @@ namespace MusicMixology.Controllers
 
             return View(vm);
         }
+
+        // 🔐 Admin only: Create pairing
         [Authorize(Roles = "Admin")]
-        // ✅ Public or [Authorize] if you want only logged-in users to suggest
         public async Task<IActionResult> Create()
         {
             var vm = new PairingViewModel
@@ -80,7 +93,7 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin-only: Edit pairing
+        // 🔐 Admin only: Edit pairing
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -128,7 +141,7 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔐 Admin-only: Delete pairing
+        // 🔐 Admin only: Delete pairing
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {

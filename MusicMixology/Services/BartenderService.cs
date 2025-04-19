@@ -18,10 +18,17 @@ namespace MusicMixology.Services
         public async Task<IEnumerable<BartenderDto>> GetAllAsync()
         {
             return await _context.Bartenders
+                .Include(b => b.Cocktails)
                 .Select(b => new BartenderDto
                 {
                     BartenderId = b.BartenderId,
-                    Name = b.Name
+                    Name = b.Name,
+                    Cocktails = b.Cocktails.Select(c => new CocktailDTO
+                    {
+                        CocktailID = c.CocktailID,
+                        Name = c.Name,
+                        Recipe = c.Recipe
+                    }).ToList()
                 })
                 .ToListAsync();
         }

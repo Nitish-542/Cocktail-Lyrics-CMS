@@ -20,10 +20,21 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
-        // ✅ Anyone can view the album list
-        public async Task<IActionResult> Index()
+        // ✅ Anyone can view the album list (now supports search)
+        public async Task<IActionResult> Index(string searchTerm)
         {
             var albums = await _albumService.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                albums = albums
+                    .Where(a =>
+                        (!string.IsNullOrEmpty(a.AlbumTitle) && a.AlbumTitle.ToLower().Contains(searchTerm)) ||
+                        (!string.IsNullOrEmpty(a.ArtistName) && a.ArtistName.ToLower().Contains(searchTerm)))
+                    .ToList();
+            }
+
             return View(albums);
         }
 
@@ -136,7 +147,7 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔧 Helper
+        // 🔧 Helper for dropdown
         private async Task<List<SelectListItem>> GetArtistSelectListAsync()
         {
             return await _context.Artists
@@ -149,3 +160,4 @@ namespace MusicMixology.Controllers
         }
     }
 }
+ 

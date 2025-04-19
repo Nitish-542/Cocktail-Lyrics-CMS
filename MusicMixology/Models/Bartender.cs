@@ -16,5 +16,7 @@ namespace MusicMixology.Models
     {
         public int BartenderId { get; set; }
         public string Name { get; set; }
+
+        public List<CocktailDTO>? Cocktails { get; set; }
     }
 }

@@ -5,13 +5,18 @@
 }
 
 <h2>Category List</h2>
-
+<form method="get" class="mb-3 d-flex gap-2">
+    <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="form-control w-25" placeholder="Search categories..." />
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+</form>
 <a asp-action="Create" class="btn btn-success mb-3">Add New Category</a>
 
 <table class="table table-bordered">
     <thead>
         <tr>
             <th>Category Name</th>
+            <th>Cocktails</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -20,6 +25,21 @@
         {
             <tr>
                 <td>@category.CategoryName</td>
+                <td>
+                    @if (category.Cocktails != null && category.Cocktails.Any())
+                    {
+                        <ul class="mb-0 ps-3">
+                            @foreach (var cocktail in category.Cocktails)
+                            {
+                                <li>@cocktail.Name</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <em>No cocktails</em>
+                    }
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@category.CategoryId" class="btn btn-sm btn-warning">Edit</a>
                     <a asp-action="Details" asp-route-id="@category.CategoryId" class="btn btn-sm btn-info">Details</a>

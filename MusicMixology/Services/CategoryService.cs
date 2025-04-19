@@ -17,23 +17,43 @@ namespace MusicMixology.Services
         public async Task<IEnumerable<CategoryDTO>> GetAllAsync()
         {
             return await _context.Categories
+                .Include(c => c.Cocktails)
                 .Select(c => new CategoryDTO
                 {
                     CategoryId = c.CategoryId,
-                    CategoryName = c.CategoryName
+                    CategoryName = c.CategoryName,
+                    Cocktails = c.Cocktails.Select(co => new CocktailDTO
+                    {
+                        CocktailID = co.CocktailID,
+                        Name = co.Name
+                    }).ToList()
                 })
                 .ToListAsync();
         }
 
+
         public async Task<CategoryDTO?> GetByIdAsync(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Categories
+                .Include(c => c.Cocktails)
+                .FirstOrDefaultAsync(c => c.CategoryId == id);
+
             if (category == null) return null;
 
             return new CategoryDTO
             {
                 CategoryId = category.CategoryId,
-                CategoryName = category.CategoryName
+                CategoryName = category.CategoryName,
+                Cocktails = category.Cocktails.Select(c => new CocktailDTO
+                {
+                    CocktailID = c.CocktailID,
+                    Name = c.Name,
+                    Recipe = c.Recipe,
+                    LiqIns = c.LiqIns,
+                    MixIns = c.MixIns,
+                    BartenderId = c.BartenderID,
+                    CategoryId = c.CategoryID
+                }).ToList()
             };
         }
 
@@ -61,7 +81,6 @@ namespace MusicMixology.Services
                 return false;
 
             category.CategoryName = dto.CategoryName;
-
             _context.Entry(category).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 

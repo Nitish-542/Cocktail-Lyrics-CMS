@@ -4,7 +4,12 @@
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
-
+<form method="get" class="mb-4 d-flex gap-2">
+    <input type="text" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
+           class="form-control w-25" placeholder="Search by title or genre..." />
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+</form>
 <p>
     <a asp-action="Create" class="btn btn-success">Add New Song</a>
 </p>
