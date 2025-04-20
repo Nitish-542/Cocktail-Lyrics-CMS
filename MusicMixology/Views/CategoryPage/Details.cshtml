@@ -1,22 +1,32 @@
 ﻿@model MusicMixology.Models.CategoryDTO
+
 @{
+    // Sets the title of the page for use in layout or browser tab
     ViewData["Title"] = "Category Details";
 }
 
+<!-- Page Heading -->
 <h2 class="mb-4">Category Details</h2>
 
+<!-- Display the name of the current category -->
 <div class="mb-3">
     <strong>Category Name:</strong> @Model.CategoryName
 </div>
 
+<!-- Check if the category has any associated cocktails -->
 @if (Model.Cocktails != null && Model.Cocktails.Any())
 {
+    <!-- Display a heading for the cocktail list -->
     <h4 class="mt-4">Cocktails in this Category:</h4>
+
+    <!-- List each cocktail under the category -->
     <ul class="list-group">
         @foreach (var cocktail in Model.Cocktails)
         {
             <li class="list-group-item">
+                <!-- Cocktail name in bold -->
                 <strong>@cocktail.Name</strong><br />
+                <!-- Show the recipe for each cocktail -->
                 <small>Recipe: @cocktail.Recipe</small>
             </li>
         }
@@ -24,12 +34,19 @@
 }
 else
 {
+    <!-- If no cocktails exist, display a muted message -->
     <p class="text-muted"><em>No cocktails in this category yet.</em></p>
 }
 
+<!-- Action buttons for editing, navigating back, or creating a new category -->
 <div class="mt-4">
+    <!-- Button to edit the current category -->
     <a asp-action="Edit" asp-route-id="@Model.CategoryId" class="btn btn-warning">Edit</a>
+    
+    <!-- Button to return to the list of all categories -->
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    
+    <!-- Button to create a new category -->
     <a asp-action="Create" class="btn btn-success mb-3">Add New Category</a>
 </div>
-
+    

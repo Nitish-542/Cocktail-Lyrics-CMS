@@ -1,30 +1,42 @@
 ﻿@model MusicMixology.Models.SongDTO
 
 @{
+    // Set the page title in the ViewData dictionary
     ViewData["Title"] = "Delete Song";
 }
 
+<!-- Page heading -->
 <h2 class="mb-4">Are you sure you want to delete this?</h2>
 
+<!-- Display song details before deletion confirmation -->
 <div class="mb-3">
+    <!-- Display the song title as a subheading -->
     <h4>@Model.Title</h4>
 
+    <!-- Definition list to display song metadata -->
     <dl class="row">
+        <!-- Artist Name -->
         <dt class="col-sm-2">Artist</dt>
         <dd class="col-sm-10">@Model.ArtistName</dd>
 
+        <!-- Album Title (fallback to '-' if null or empty) -->
         <dt class="col-sm-2">Album</dt>
         <dd class="col-sm-10">@(!string.IsNullOrEmpty(Model.AlbumTitle) ? Model.AlbumTitle : "-")</dd>
 
+        <!-- Genre -->
         <dt class="col-sm-2">Genre</dt>
         <dd class="col-sm-10">@Model.Genre</dd>
     </dl>
 </div>
 
+<!-- Form to confirm deletion -->
 <form asp-action="Delete" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="SongId" />
+    @Html.AntiForgeryToken() <!-- Prevent CSRF attacks -->
+    <input type="hidden" asp-for="SongId" /> <!-- Pass the song ID in a hidden field -->
+
+    <!-- Submit button to confirm delete -->
     <button type="submit" class="btn btn-danger">Delete</button>
+
+    <!-- Cancel button redirects to the song list page -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
-

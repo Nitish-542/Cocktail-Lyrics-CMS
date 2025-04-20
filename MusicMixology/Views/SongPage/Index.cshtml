@@ -1,19 +1,26 @@
-﻿@model IEnumerable<MusicMixology.Models.SongDTO>
+﻿@model IEnumerable<MusicMixology.Models.SongDTO> // The view expects a collection of SongDTO objects as its model
+
 @{
-    ViewData["Title"] = "Songs";
+    ViewData["Title"] = "Songs"; // Set the page title for the View
 }
 
-<h2 class="mb-4">@ViewData["Title"]</h2>
+<h2 class="mb-4">@ViewData["Title"]</h2> <!-- Display the title as a heading -->
+
+<!-- Search form -->
 <form method="get" class="mb-4 d-flex gap-2">
+    <!-- Input for search term; retains query value on page load -->
     <input type="text" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
            class="form-control w-25" placeholder="Search by title or genre..." />
-    <button type="submit" class="btn btn-outline-primary">Search</button>
-    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+    <button type="submit" class="btn btn-outline-primary">Search</button> <!-- Submit search -->
+    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a> <!-- Link to reset/clear the search -->
 </form>
+
+<!-- Button to navigate to the song creation page -->
 <p>
     <a asp-action="Create" class="btn btn-success">Add New Song</a>
 </p>
 
+<!-- Table to list songs -->
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -21,18 +28,21 @@
             <th>Artist</th>
             <th>Album</th>
             <th>Genre</th>
-            <th style="width:180px;">Actions</th>
+            <th style="width:180px;">Actions</th> <!-- Column for action buttons -->
         </tr>
     </thead>
     <tbody>
+        <!-- Loop through each song in the model and render its details -->
         @foreach (var song in Model)
         {
             <tr>
                 <td>@song.Title</td>
                 <td>@song.ArtistName</td>
+                <!-- Show hyphen if AlbumTitle is null or empty -->
                 <td>@(string.IsNullOrEmpty(song.AlbumTitle) ? "-" : song.AlbumTitle)</td>
                 <td>@song.Genre</td>
                 <td>
+                    <!-- Action buttons for details, edit, and delete -->
                     <a asp-action="Details" asp-route-id="@song.SongId" class="btn btn-info btn-sm">Details</a>
                     <a asp-action="Edit" asp-route-id="@song.SongId" class="btn btn-warning btn-sm">Edit</a>
                     <a asp-action="Delete" asp-route-id="@song.SongId" class="btn btn-danger btn-sm">Delete</a>

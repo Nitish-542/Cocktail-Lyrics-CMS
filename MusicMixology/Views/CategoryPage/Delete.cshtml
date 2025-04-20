@@ -1,23 +1,33 @@
-﻿@model MusicMixology.Models.CategoryDTO
+﻿@model MusicMixology.Models.CategoryDTO  // The view is strongly typed to the CategoryDTO model
 
 @{
-    ViewData["Title"] = "Delete Category";
+    ViewData["Title"] = "Delete Category";  
+    // Sets the page title to display in the browser tab
 }
 
-<h2>Delete Category</h2>
+<h2>Delete Category</h2>  <!-- Page heading -->
 
-<h4>Are you sure you want to delete this category?</h4>
+<h4>Are you sure you want to delete this category?</h4> 
+ <!-- Confirmation prompt for the user -->
 
 <div>
-    <dl class="row">
-        <dt class="col-sm-2">Name</dt>
-        <dd class="col-sm-10">@Model.CategoryName</dd>
+    <dl class="row"> 
+        <!-- Description list to show details of the category -->
+        <dt class="col-sm-2">Name</dt>  
+        <!-- Label for the category name -->
+        <dd class="col-sm-10">@Model.CategoryName</dd>  
+        <!-- Displays the actual name of the category -->
     </dl>
 </div>
 
-<form asp-action="Delete" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="CategoryId" />
-    <button type="submit" class="btn btn-danger">Yes, Delete</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+<form asp-action="Delete" method="post"> 
+    <!-- Form that submits the delete request via POST -->
+    @Html.AntiForgeryToken()  
+    // Prevents Cross-Site Request Forgery (CSRF) attacks
+    <input type="hidden" asp-for="CategoryId" />  
+    // Hidden field to pass the CategoryId to the controller
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>  
+    <!-- Button to confirm deletion -->
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>  
+    <!-- Button to cancel and return to the category list -->
 </form>

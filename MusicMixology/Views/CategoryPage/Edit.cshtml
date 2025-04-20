@@ -1,25 +1,37 @@
 ﻿@model MusicMixology.Models.CategoryDTO
+
 @{
+    // Set the title of the page
     ViewData["Title"] = "Edit Category";
 }
 
+<!-- Page Heading -->
 <h2 class="mb-4">Edit Category</h2>
 
+<!-- Begin Edit Category Form -->
 <form asp-action="Edit" method="post">
+    @* Anti-forgery token for security to prevent CSRF attacks *@
     @Html.AntiForgeryToken()
+
+    @* Hidden input to store the Category ID (used for identifying the category being edited) *@
     <input type="hidden" asp-for="CategoryId" />
 
+    <!-- Category Name Input -->
     <div class="form-group">
         <label asp-for="CategoryName" class="control-label"></label>
+        @* Input field bound to CategoryName property *@
         <input asp-for="CategoryName" class="form-control" />
+        @* Display validation message for CategoryName if any *@
         <span asp-validation-for="CategoryName" class="text-danger"></span>
     </div>
 
+    <!-- Submit and Cancel Buttons -->
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
+    @* Include client-side validation scripts *@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

@@ -1,17 +1,29 @@
-﻿@model MusicMixology.Models.Bartender
+﻿@model MusicMixology.Models.Bartender // Binds the view to the Bartender model from the MusicMixology.Models namespace
 
 @{
     ViewData["Title"] = "Create Bartender";
+     // Sets the page title for display in the layout
 }
 
-<h2>Create New Bartender</h2>
+<h2>Create New Bartender</h2> <!-- Page heading -->
 
-<form asp-action="Create" method="post">
+<!-- Form for creating a new Bartender -->
+<form asp-action="Create" method="post"> 
+    <!-- Posts data to the Create action in the Bartender controller -->
     <div class="form-group">
+        <!-- Label for Name input field, auto-generates based on model property -->
         <label asp-for="Name"></label>
+
+        <!-- Input field bound to the Name property in the Bartender model -->
         <input asp-for="Name" class="form-control" />
+
+        <!-- Displays validation message for Name if there's an error -->
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
+
+    <!-- Submit button to send form data -->
     <button type="submit" class="btn btn-success">Create</button>
+
+    <!-- Link to return to the Index page (cancel operation) -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

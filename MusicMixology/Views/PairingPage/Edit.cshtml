@@ -1,40 +1,54 @@
 ﻿@model MusicMixology.ViewModels.PairingViewModel
+
 @{
+    // Set the title of the page
     ViewData["Title"] = "Edit Pairing";
 }
 
+<!-- Page Heading -->
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
+<!-- Begin form for editing a pairing -->
 <form asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken() <!-- Protects the form from CSRF attacks -->
+    
+    <!-- Hidden field to retain the Pairing ID (used to identify the record) -->
     <input type="hidden" asp-for="PairingId" />
 
+    <!-- Dropdown to select a Cocktail -->
     <div class="mb-3">
         <label asp-for="CocktailId" class="form-label"></label>
         <select asp-for="CocktailId" class="form-control" asp-items="Model.CocktailList">
             <option value="">-- Select Cocktail --</option>
         </select>
+        <!-- Displays validation message for CocktailId -->
         <span asp-validation-for="CocktailId" class="text-danger"></span>
     </div>
 
+    <!-- Dropdown to select a Song -->
     <div class="mb-3">
         <label asp-for="SongId" class="form-label"></label>
         <select asp-for="SongId" class="form-control" asp-items="Model.SongList">
             <option value="">-- Select Song --</option>
         </select>
+        <!-- Displays validation message for SongId -->
         <span asp-validation-for="SongId" class="text-danger"></span>
     </div>
 
+    <!-- Input for entering the Mood Category -->
     <div class="mb-3">
         <label asp-for="MoodCategory" class="form-label"></label>
         <input asp-for="MoodCategory" class="form-control" />
+        <!-- Displays validation message for MoodCategory -->
         <span asp-validation-for="MoodCategory" class="text-danger"></span>
     </div>
 
+    <!-- Submit and Cancel buttons -->
     <button type="submit" class="btn btn-primary">Save Changes</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
+<!-- Section to include client-side validation scripts -->
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

@@ -1,45 +1,59 @@
-﻿@model IEnumerable<MusicMixology.Models.BartenderDto>
+﻿@model IEnumerable<MusicMixology.Models.BartenderDto> // Specifies the model passed to the view: a collection of Bartender DTOs
+
 @{
-    ViewData["Title"] = "Bartenders";
+    ViewData["Title"] = "Bartenders"; 
+    // Sets the title of the page
 }
 
-<h2>Bartenders</h2>
+<h2>Bartenders</h2> <!-- Page Heading -->
 
 <p>
+    <!-- Link to create a new bartender -->
     <a asp-action="Create" class="btn btn-success">Add New Bartender</a>
 </p>
 
+<!-- Search Form -->
 <form method="get" class="mb-3 d-flex gap-2">
     <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="form-control w-25" placeholder="Search bartenders..." />
     <button type="submit" class="btn btn-outline-primary">Search</button>
-    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a> 
+    <!-- Clears the search filter -->
 </form>
 
+<!-- Loop through each bartender in the model -->
 @foreach (var b in Model)
 {
     <div class="card mb-3">
+        <!-- Card Header with Bartender Name and Action Buttons -->
         <div class="card-header d-flex justify-content-between">
-            <strong>@b.Name</strong>
+            <strong>@b.Name</strong> 
+            <!-- Display bartender's name -->
             <div>
+                <!-- Action buttons: Details, Edit, Delete -->
                 <a asp-action="Details" asp-route-id="@b.BartenderId" class="btn btn-info btn-sm">Details</a>
                 <a asp-action="Edit" asp-route-id="@b.BartenderId" class="btn btn-warning btn-sm">Edit</a>
                 <a asp-action="Delete" asp-route-id="@b.BartenderId" class="btn btn-danger btn-sm">Delete</a>
             </div>
         </div>
+
+        <!-- Card Body: List of Cocktails associated with the bartender -->
         <div class="card-body">
             <p><strong>Cocktails:</strong></p>
-            @if (b.Cocktails != null && b.Cocktails.Any())
+            @if (b.Cocktails != null && b.Cocktails.Any()) 
+            // Check if bartender has cocktails
             {
                 <ol>
-                    @foreach (var cocktail in b.Cocktails)
+                    @foreach (var cocktail in b.Cocktails) // List each cocktail
                     {
-                        <li>@cocktail.Name - <em>@cocktail.Recipe</em></li>
+                        <li>@cocktail.Name - <em>@cocktail.Recipe</em></li> 
+                        <!-- Display cocktail name and recipe -->
                     }
                 </ol>
             }
             else
             {
-                <p><em>No cocktails listed.</em></p>
+                <p><em>No cocktails listed.</em></p> 
+                <!-- Message for bartenders with no cocktails -->
             }
         </div>
     </div>

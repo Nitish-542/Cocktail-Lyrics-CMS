@@ -1,17 +1,22 @@
 ﻿@model MusicMixology.Models.AlbumDTO
 @{
+    // Set the title of the view page
     ViewData["Title"] = "Album Details";
 }
 
+<!-- Display the album title as a heading -->
 <h2 class="mb-3">@Model.AlbumTitle</h2>
 
+<!-- Display the artist name in a definition list -->
 <dl class="row">
     <dt class="col-sm-2">Artist</dt>
     <dd class="col-sm-10">@Model.ArtistName</dd>
 </dl>
 
+<!-- Check if the album has any associated songs -->
 @if (Model.Songs != null && Model.Songs.Any())
 {
+    <!-- Display table of songs if they exist -->
     <h4 class="mt-4">Songs in this Album</h4>
     <table class="table table-sm table-bordered mt-2">
         <thead>
@@ -22,6 +27,7 @@
             </tr>
         </thead>
         <tbody>
+            <!-- Loop through each song and display details -->
             @foreach (var song in Model.Songs)
             {
                 <tr>
@@ -35,8 +41,10 @@
 }
 else
 {
+    <!-- Display fallback message if no songs found -->
     <p><em>No songs found for this album.</em></p>
 }
 
+<!-- Action buttons for editing and navigating back to album list -->
 <a asp-action="Edit" asp-route-id="@Model.AlbumId" class="btn btn-warning mt-3">Edit</a>
 <a asp-action="Index" class="btn btn-secondary mt-3">Back to List</a>

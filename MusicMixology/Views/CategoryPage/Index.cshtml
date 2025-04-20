@@ -1,45 +1,61 @@
 ﻿@model IEnumerable<MusicMixology.Models.CategoryDTO>
 
 @{
+    // Sets the page title shown in the browser tab
     ViewData["Title"] = "Category List";
 }
 
+<!-- Page heading -->
 <h2>Category List</h2>
+
+<!-- Search form: allows user to search categories by name -->
 <form method="get" class="mb-3 d-flex gap-2">
+    <!-- Input field pre-filled with the previous search term if available -->
     <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="form-control w-25" placeholder="Search categories..." />
+    <!-- Button to trigger search -->
     <button type="submit" class="btn btn-outline-primary">Search</button>
+    <!-- Button to clear search filter and reload full list -->
     <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
 </form>
+
+<!-- Link to add a new category -->
 <a asp-action="Create" class="btn btn-success mb-3">Add New Category</a>
 
+<!-- Category display table -->
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Category Name</th>
-            <th>Cocktails</th>
-            <th>Actions</th>
+            <th>Category Name</th> <!-- Column for category names -->
+            <th>Cocktails</th>     <!-- Column for list of cocktails under each category -->
+            <th>Actions</th>       <!-- Column for edit/view/delete actions -->
         </tr>
     </thead>
     <tbody>
+        <!-- Loop through each category in the model -->
         @foreach (var category in Model)
         {
             <tr>
+                <!-- Display category name -->
                 <td>@category.CategoryName</td>
+
+                <!-- Display cocktails under the category if available -->
                 <td>
                     @if (category.Cocktails != null && category.Cocktails.Any())
                     {
                         <ul class="mb-0 ps-3">
                             @foreach (var cocktail in category.Cocktails)
                             {
-                                <li>@cocktail.Name</li>
+                                <li>@cocktail.Name</li> <!-- Each cocktail name -->
                             }
                         </ul>
                     }
                     else
                     {
-                        <em>No cocktails</em>
+                        <em>No cocktails</em> <!-- If no cocktails found -->
                     }
                 </td>
+
+                <!-- Action buttons for Edit, Details, and Delete -->
                 <td>
                     <a asp-action="Edit" asp-route-id="@category.CategoryId" class="btn btn-sm btn-warning">Edit</a>
                     <a asp-action="Details" asp-route-id="@category.CategoryId" class="btn btn-sm btn-info">Details</a>

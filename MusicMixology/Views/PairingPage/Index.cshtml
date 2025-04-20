@@ -1,12 +1,14 @@
 ﻿@model IEnumerable<MusicMixology.Models.CocktailSongPairingDTO>
 
+// Set the page title
 @{
     ViewData["Title"] = "Cocktail-Song Pairings";
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
-<!-- 🔍 Search Form -->
+<!-- Search Form -->
+<!-- Allows users to filter pairings based on mood, cocktail, or song -->
 <form method="get" class="mb-4 d-flex gap-2">
     <input type="text" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
            class="form-control w-25" placeholder="Search by mood, cocktail, or song" />
@@ -15,35 +17,41 @@
 </form>
 
 <!-- Add Button -->
+<!-- Link to the page for creating a new cocktail-song pairing -->
 <p>
     <a asp-action="Create" class="btn btn-success">Add New Pairing</a>
 </p>
 
+<!-- Display grouped pairings if any exist -->
 @if (Model.Any())
 {
+    // Group pairings by MoodCategory
     var grouped = Model.GroupBy(p => p.MoodCategory);
 
+    // Loop through each mood category
     foreach (var group in grouped)
     {
-        <h4 class="mt-4">@group.Key Mood</h4>
+        <h4 class="mt-4">@group.Key Mood</h4> <!-- Display mood category -->
 
+        <!-- Table displaying pairings under each mood -->
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>Cocktail</th>
                     <th>Song</th>
                     <th>Genre</th>
-                    <th>Actions</th>
+                    <th>Actions</th> <!-- Edit/Delete/Details options -->
                 </tr>
             </thead>
             <tbody>
                 @foreach (var pairing in group)
                 {
                     <tr>
-                        <td>@pairing.Name</td>
-                        <td>@pairing.Title</td>
-                        <td>@pairing.Song?.Genre</td>
+                        <td>@pairing.Name</td>       <!-- Cocktail name -->
+                        <td>@pairing.Title</td>      <!-- Song title -->
+                        <td>@pairing.Song?.Genre</td> <!-- Song genre -->
                         <td>
+                            <!-- Action buttons -->
                             <a asp-action="Details" asp-route-id="@pairing.PairingId" class="btn btn-info btn-sm">Details</a>
                             <a asp-action="Edit" asp-route-id="@pairing.PairingId" class="btn btn-warning btn-sm">Edit</a>
                             <a asp-action="Delete" asp-route-id="@pairing.PairingId" class="btn btn-danger btn-sm">Delete</a>
@@ -56,6 +64,7 @@
 }
 else
 {
+    <!-- Message when no pairings exist -->
     <div class="alert alert-info">
         No pairings available. <a asp-action="Create">Create the first one</a>!
     </div>

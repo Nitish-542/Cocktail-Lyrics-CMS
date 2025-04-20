@@ -1,12 +1,15 @@
 ﻿@model IEnumerable<MusicMixology.ViewModels.ArtistViewModel>
 
 @{
+    // Set the title for the page
     ViewData["Title"] = "Artists";
 }
 
+<!-- Page Heading -->
 <h2 class="mb-4">Artists</h2>
 
-<!-- 🔍 Search Bar -->
+<!-- Search Bar Section -->
+<!-- Allows the user to search artists, albums, or songs -->
 <form method="get" class="mb-4 d-flex gap-2">
     <input type="text" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
            class="form-control w-25" placeholder="Search artists, albums, or songs..." />
@@ -14,23 +17,30 @@
     <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
 </form>
 
-<!-- ➕ Add Button -->
+<!-- Add New Artist Button -->
+<!-- Redirects to the Create page to add a new artist -->
 <p>
     <a asp-action="Create" class="btn btn-success">Add New Artist</a>
 </p>
 
+<!-- Display Artist List -->
 @foreach (var artist in Model)
 {
     <div class="card mb-4">
+        <!-- Artist Header -->
         <div class="card-header">
             <strong>@artist.Name</strong>
+            <!-- Action Buttons: Details, Edit, Delete -->
             <div class="float-end">
                 <a asp-action="Details" asp-route-id="@artist.ArtistId" class="btn btn-sm btn-info">Details</a>
                 <a asp-action="Edit" asp-route-id="@artist.ArtistId" class="btn btn-sm btn-warning">Edit</a>
                 <a asp-action="Delete" asp-route-id="@artist.ArtistId" class="btn btn-sm btn-danger">Delete</a>
             </div>
         </div>
+
+        <!-- Albums and 🎶 Songs -->
         <div class="card-body">
+            <!-- Albums List -->
             <p><strong>Albums:</strong></p>
             @if (artist.Albums.Any())
             {
@@ -46,6 +56,7 @@
                 <p><em>No albums available.</em></p>
             }
 
+            <!-- Songs List -->
             <p class="mt-3"><strong>Songs:</strong></p>
             @if (artist.Songs.Any())
             {
