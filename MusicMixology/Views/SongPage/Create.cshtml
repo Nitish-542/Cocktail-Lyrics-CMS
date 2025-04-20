@@ -1,50 +1,42 @@
 ﻿@model MusicMixology.ViewModels.SongViewModel
-
 @{
-    ViewData["Title"] = "Create Song"; // Setting the title for the page.
+    ViewData["Title"] = "Create Song";
 }
 <h2>@ViewData["Title"]</h2>
 
-<!-- Form for creating a new song -->
 <form asp-action="Create">
-    <!-- Display any model validation errors -->
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <!-- Form group for Song Title -->
     <div class="form-group">
-        <label asp-for="Title" class="control-label"></label> <!-- Label for Title input -->
-        <input asp-for="Title" class="form-control" /> <!-- Input field for Song Title -->
-        <span asp-validation-for="Title" class="text-danger"></span> <!-- Validation message for Title -->
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
 
-    <!-- Form group for selecting an Artist -->
     <div class="form-group">
-        <label asp-for="ArtistId" class="control-label"></label> <!-- Label for Artist dropdown -->
+        <label asp-for="ArtistId" class="control-label"></label>
         <select asp-for="ArtistId" class="form-control" asp-items="Model.ArtistList">
-            <option value="">-- Select Artist --</option> <!-- Default option for Artist -->
+            <option value="">-- Select Artist --</option>
         </select>
-        <span asp-validation-for="ArtistId" class="text-danger"></span> <!-- Validation message for Artist selection -->
+        <span asp-validation-for="ArtistId" class="text-danger"></span>
     </div>
 
-    <!-- Form group for selecting an Album -->
+
     <div class="form-group">
-        <label asp-for="AlbumId" class="control-label"></label> <!-- Label for Album dropdown -->
+        <label asp-for="AlbumId" class="control-label"></label>
         <select asp-for="AlbumId" class="form-control" asp-items="Model.AlbumList">
-            <option value="">-- Select Album --</option> <!-- Default option for Album -->
+            <option value="">-- Select Album --</option>
         </select>
-        <span asp-validation-for="AlbumId" class="text-danger"></span> <!-- Validation message for Album selection -->
+        <span asp-validation-for="AlbumId" class="text-danger"></span>
     </div>
 
-    <!-- Form group for Genre -->
+
     <div class="form-group">
-        <label asp-for="Genre" class="control-label"></label> <!-- Label for Genre input -->
-        <input asp-for="Genre" class="form-control" /> <!-- Input field for Genre -->
-        <span asp-validation-for="Genre" class="text-danger"></span> <!-- Validation message for Genre -->
+        <label asp-for="Genre" class="control-label"></label>
+        <input asp-for="Genre" class="form-control" />
+        <span asp-validation-for="Genre" class="text-danger"></span>
     </div>
 
-    <!-- Submit button to create the song -->
     <button type="submit" class="btn btn-primary">Create</button>
-
-    <!-- Link to go back to the song list page -->
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </form>

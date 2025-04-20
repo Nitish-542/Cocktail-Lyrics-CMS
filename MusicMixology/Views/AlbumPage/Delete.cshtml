@@ -1,12 +1,5 @@
-﻿@* 
-    Razor View for confirming album deletion.
-    Displays album title and artist, and asks the user to confirm the deletion.
-    Submits the deletion via POST with anti-forgery protection.
-*@
-@model MusicMixology.Models.AlbumDTO
-
+﻿@model MusicMixology.Models.AlbumDTO
 @{
-    // Sets the page title
     ViewData["Title"] = "Delete Album";
 }
 
@@ -22,15 +15,8 @@
 </div>
 
 <form asp-action="Delete" method="post">
-    @* Includes anti-forgery token for security *@
     @Html.AntiForgeryToken()
-
-    @* Hidden input to pass the AlbumId back to the controller *@
     <input type="hidden" asp-for="AlbumId" />
-
-    @* Submit button for confirming deletion *@
     <button type="submit" class="btn btn-danger">Delete</button>
-
-    @* Cancel button that navigates back to the album index *@
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

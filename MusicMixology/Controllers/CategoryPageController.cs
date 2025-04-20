@@ -21,12 +21,23 @@ namespace MusicMixology.Controllers
             _categoryService = categoryService;
         }
 
+
         /// <summary>
         /// Public: Displays a list of all categories.
         /// </summary>
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchTerm)
         {
             var categories = await _categoryService.GetAllAsync();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                categories = categories
+                    .Where(c => c.CategoryName.ToLower().Contains(searchTerm))
+                    .ToList();
+            }
+
+            ViewBag.SearchTerm = searchTerm;
             return View(categories);
         }
 

@@ -1,33 +1,26 @@
 ﻿@model MusicMixology.Models.CategoryDTO
-
 @{
-    // Sets the title for the page
     ViewData["Title"] = "Edit Category";
 }
 
 <h2 class="mb-4">Edit Category</h2>
 
-<!-- Form to edit category details -->
 <form asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()  <!-- Token to prevent cross-site request forgery -->
-    <input type="hidden" asp-for="CategoryId" />  <!-- Hidden input to hold the category ID -->
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="CategoryId" />
 
-    <!-- Category Name Input Field -->
     <div class="form-group">
-        <label asp-for="CategoryName" class="control-label"></label>  <!-- Label for the Category Name field -->
-        <input asp-for="CategoryName" class="form-control" />  <!-- Text input for the Category Name -->
-        <span asp-validation-for="CategoryName" class="text-danger"></span>  <!-- Validation error message if Category Name is invalid -->
+        <label asp-for="CategoryName" class="control-label"></label>
+        <input asp-for="CategoryName" class="form-control" />
+        <span asp-validation-for="CategoryName" class="text-danger"></span>
     </div>
 
-    <!-- Save and Cancel buttons -->
-    <button type="submit" class="btn btn-primary">Save</button>  <!-- Submit button to save changes -->
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>  <!-- Link to navigate back to the category index -->
-
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
     @{
-        // Renders validation scripts for client-side validation
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

@@ -1,71 +1,51 @@
 ﻿@model MusicMixology.ViewModels.SongViewModel
 
 @{
-    // Set the page title to "Edit Song"
     ViewData["Title"] = "Edit Song";
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
-<!-- Form for editing song details -->
 <form asp-action="Edit" method="post">
-    <!-- Anti-forgery token for CSRF protection -->
     @Html.AntiForgeryToken()
-    <!-- Hidden input to hold the SongId for identifying the song -->
     <input type="hidden" asp-for="SongId" />
 
-    <!-- Display model validation errors, if any -->
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <!-- Form group for the Song Title field -->
     <div class="form-group mb-3">
         <label asp-for="Title" class="form-label"></label>
-        <!-- Input field for the Song Title -->
         <input asp-for="Title" class="form-control" />
-        <!-- Validation message for Song Title -->
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
 
-    <!-- Form group for selecting the Artist -->
     <div class="form-group mb-3">
         <label asp-for="ArtistId" class="form-label"></label>
-        <!-- Dropdown for selecting an artist -->
         <select asp-for="ArtistId" class="form-control" asp-items="Model.ArtistList">
             <option value="">-- Select Artist --</option>
         </select>
-        <!-- Validation message for Artist selection -->
         <span asp-validation-for="ArtistId" class="text-danger"></span>
     </div>
 
-    <!-- Form group for selecting the Album -->
     <div class="form-group mb-3">
         <label asp-for="AlbumId" class="form-label"></label>
-        <!-- Dropdown for selecting an album -->
         <select asp-for="AlbumId" class="form-control" asp-items="Model.AlbumList">
             <option value="">-- Select Album --</option>
         </select>
-        <!-- Validation message for Album selection -->
         <span asp-validation-for="AlbumId" class="text-danger"></span>
     </div>
 
-    <!-- Form group for the Genre field -->
     <div class="form-group mb-4">
         <label asp-for="Genre" class="form-label"></label>
-        <!-- Input field for the Song Genre -->
         <input asp-for="Genre" class="form-control" />
-        <!-- Validation message for Genre -->
         <span asp-validation-for="Genre" class="text-danger"></span>
     </div>
 
-    <!-- Submit button to save changes -->
     <button type="submit" class="btn btn-primary">Save</button>
-    <!-- Cancel button to navigate back to the index page -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
     @{
-        // Render the validation scripts partial to enable client-side validation
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

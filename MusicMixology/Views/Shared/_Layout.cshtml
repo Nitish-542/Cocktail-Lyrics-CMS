@@ -1,80 +1,79 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta tags for charset and responsive viewport -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Title for the page, dynamically set based on ViewData -->
     <title>@ViewData["Title"] - MusicMixology</title>
-    
-    <!-- Linking to Bootstrap and custom CSS files -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MusicMixology.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <!-- Navbar for navigation with links to various pages -->
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <!-- Logo and main link to Home page -->
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MusicMixology</a>
-                
-                <!-- Collapsible menu button for smaller screens -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
-                <!-- Navbar items for navigation to different pages -->
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <!-- Each list item is a navigation link -->
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Swagger" asp-action="Index">Api</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="CocktailPage" asp-action="Index">Cocktails</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="CategoryPage" asp-action="Index">Categories</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="SongPage" asp-action="Index">Songs</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="BartenderPage" asp-action="Index">Bartenders</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="AlbumPage" asp-action="Index">Album</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="ArtistPage" asp-action="Index">Artist</a></li>
-                        <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="PairingPage" asp-action="Index">Sound & Sip</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Swagger" asp-action="Index">Api</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CocktailPage" asp-action="Index">Cocktails</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="CategoryPage" asp-action="Index">Categories</a>
+                        </li>
+                                                <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="BartenderPage" asp-action="Index">Bartenders</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="SongPage" asp-action="Index">Songs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="AlbumPage" asp-action="Index">Album</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ArtistPage" asp-action="Index">Artist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="PairingPage" asp-action="Index">Sound & Sip</a>
+                        </li>
                     </ul>
-                    
-                    <!-- Login partial view, potentially rendering login/logout info -->
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-    
     <div class="container">
-        <!-- Main content area where dynamic page content will be rendered -->
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <!-- Footer section with copyright information and privacy policy link -->
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2025 - MusicMixology - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    
-    <!-- Section for including validation scripts if required -->
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />
     }
-    
-    <!-- Linking to jQuery, Bootstrap JavaScript, and custom site JS -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    
-    <!-- Render additional scripts if any are required -->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

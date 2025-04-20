@@ -5,27 +5,15 @@ using MusicMixology.Models;
 
 namespace MusicMixology.Services
 {
-    /// <summary>
-    /// Service class for handling album-related data operations.
-    /// Implements the IAlbumService interface.
-    /// </summary>
     public class AlbumService : IAlbumService
     {
         private readonly ApplicationDbContext _context;
 
-        /// <summary>
-        /// Constructor with dependency injection of the application DB context.
-        /// </summary>
-        /// <param name="context">Application database context</param>
         public AlbumService(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        /// <summary>
-        /// Retrieves all albums along with associated artists and songs.
-        /// </summary>
-        /// <returns>A list of AlbumDTOs</returns>
         public async Task<IEnumerable<AlbumDTO>> GetAllAsync()
         {
             return await _context.Albums
@@ -49,11 +37,7 @@ namespace MusicMixology.Services
                 .ToListAsync();
         }
 
-        /// <summary>
-        /// Retrieves a single album by its ID with related artist and songs.
-        /// </summary>
-        /// <param name="id">Album ID</param>
-        /// <returns>AlbumDTO if found; otherwise, null</returns>
+
         public async Task<AlbumDTO?> GetByIdAsync(int id)
         {
             var album = await _context.Albums
@@ -82,11 +66,8 @@ namespace MusicMixology.Services
             };
         }
 
-        /// <summary>
-        /// Creates a new album entry in the database.
-        /// </summary>
-        /// <param name="dto">AlbumDTO containing album details</param>
-        /// <returns>The created AlbumDTO with the generated AlbumId</returns>
+
+
         public async Task<AlbumDTO> CreateAsync(AlbumDTO dto)
         {
             var album = new Album
@@ -102,12 +83,6 @@ namespace MusicMixology.Services
             return dto;
         }
 
-        /// <summary>
-        /// Updates an existing album based on the given ID and DTO.
-        /// </summary>
-        /// <param name="id">Album ID</param>
-        /// <param name="dto">Updated AlbumDTO</param>
-        /// <returns>True if update is successful; otherwise, false</returns>
         public async Task<bool> UpdateAsync(int id, AlbumDTO dto)
         {
             if (id != dto.AlbumId) return false;
@@ -124,11 +99,6 @@ namespace MusicMixology.Services
             return true;
         }
 
-        /// <summary>
-        /// Deletes an album from the database by its ID.
-        /// </summary>
-        /// <param name="id">Album ID</param>
-        /// <returns>True if deletion is successful; otherwise, false</returns>
         public async Task<bool> DeleteAsync(int id)
         {
             var album = await _context.Albums.FindAsync(id);

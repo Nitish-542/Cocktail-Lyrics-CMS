@@ -4969,24 +4969,27 @@
     ]
   },
   "packageFolders": {
-    "/Users/sumit/.nuget/packages/": {}
+    "C:\\Users\\acer\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/sumit/Documents/Music & Mixology/Cocktail-Lyrics-CMS/MusicMixology/MusicMixology.csproj",
+      "projectUniqueName": "C:\\Users\\acer\\source\\repos\\MusicMixology\\MusicMixology\\MusicMixology.csproj",
       "projectName": "MusicMixology",
-      "projectPath": "/Users/sumit/Documents/Music & Mixology/Cocktail-Lyrics-CMS/MusicMixology/MusicMixology.csproj",
-      "packagesPath": "/Users/sumit/.nuget/packages/",
-      "outputPath": "/Users/sumit/Documents/Music & Mixology/Cocktail-Lyrics-CMS/MusicMixology/obj/",
+      "projectPath": "C:\\Users\\acer\\source\\repos\\MusicMixology\\MusicMixology\\MusicMixology.csproj",
+      "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\acer\\source\\repos\\MusicMixology\\MusicMixology\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/sumit/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5066,7 +5069,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

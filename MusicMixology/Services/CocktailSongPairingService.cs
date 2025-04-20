@@ -5,26 +5,15 @@ using MusicMixology.Models;
 
 namespace MusicMixology.Services
 {
-    /// <summary>
-    /// Service for managing cocktail-song pairings.
-    /// Implements operations to create, read, update, and delete pairings.
-    /// </summary>
     public class CocktailSongPairingService : ICocktailSongPairingService
     {
         private readonly ApplicationDbContext _context;
 
-        /// <summary>
-        /// Constructor injecting the application's DbContext.
-        /// </summary>
         public CocktailSongPairingService(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        /// <summary>
-        /// Retrieves all cocktail-song pairings from the database.
-        /// </summary>
-        /// <returns>A list of CocktailSongPairingDTO objects.</returns>
         public async Task<IEnumerable<CocktailSongPairingDTO>> GetAllAsync()
         {
             return await _context.CocktailSongPairings
@@ -60,11 +49,6 @@ namespace MusicMixology.Services
                 .ToListAsync();
         }
 
-        /// <summary>
-        /// Retrieves a specific cocktail-song pairing by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the pairing to retrieve.</param>
-        /// <returns>The pairing DTO if found; otherwise, null.</returns>
         public async Task<CocktailSongPairingDTO?> GetByIdAsync(int id)
         {
             var p = await _context.CocktailSongPairings
@@ -103,11 +87,6 @@ namespace MusicMixology.Services
             };
         }
 
-        /// <summary>
-        /// Creates a new cocktail-song pairing.
-        /// </summary>
-        /// <param name="dto">The DTO representing the new pairing.</param>
-        /// <returns>The created DTO with its assigned ID.</returns>
         public async Task<CocktailSongPairingDTO> CreateAsync(CocktailSongPairingDTO dto)
         {
             var pairing = new CocktailSongPairing
@@ -124,12 +103,6 @@ namespace MusicMixology.Services
             return dto;
         }
 
-        /// <summary>
-        /// Updates an existing cocktail-song pairing.
-        /// </summary>
-        /// <param name="id">The ID of the pairing to update.</param>
-        /// <param name="dto">The updated DTO.</param>
-        /// <returns>True if updated successfully; false if not found or ID mismatch.</returns>
         public async Task<bool> UpdateAsync(int id, CocktailSongPairingDTO dto)
         {
             if (id != dto.PairingId) return false;
@@ -147,11 +120,6 @@ namespace MusicMixology.Services
             return true;
         }
 
-        /// <summary>
-        /// Deletes a cocktail-song pairing by ID.
-        /// </summary>
-        /// <param name="id">The ID of the pairing to delete.</param>
-        /// <returns>True if deleted; false if not found.</returns>
         public async Task<bool> DeleteAsync(int id)
         {
             var pairing = await _context.CocktailSongPairings.FindAsync(id);

@@ -10,7 +10,6 @@ namespace MusicMixology.ApiControllers
     public class AlbumController : ControllerBase
     {
         private readonly IAlbumService _service;
-
         // Constructor with dependency injection for album service.
         public AlbumController(IAlbumService service)
         {

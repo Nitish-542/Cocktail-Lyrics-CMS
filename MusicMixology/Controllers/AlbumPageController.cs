@@ -23,14 +23,27 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
+        // ✅ Anyone can view the album list (now supports search)
+        public async Task<IActionResult> Index(string searchTerm)
         /// <summary>
         /// Displays a list of all albums. Public access.
         /// </summary>
-        public async Task<IActionResult> Index()
         {
             var albums = await _albumService.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                albums = albums
+                    .Where(a =>
+                        (!string.IsNullOrEmpty(a.AlbumTitle) && a.AlbumTitle.ToLower().Contains(searchTerm)) ||
+                        (!string.IsNullOrEmpty(a.ArtistName) && a.ArtistName.ToLower().Contains(searchTerm)))
+                    .ToList();
+            }
+
             return View(albums);
         }
+
 
         /// <summary>
         /// Displays details for a specific album by ID. Public access.
@@ -43,10 +56,9 @@ namespace MusicMixology.Controllers
 
             return View(dto);
         }
-
         /// <summary>
         /// Displays album creation form. Admin-only access.
-        /// </summary>
+        /// </summary> ✅ Only Admins can access Create
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
@@ -61,6 +73,7 @@ namespace MusicMixology.Controllers
         /// Handles album creation form submission. Admin-only access.
         /// </summary>
         /// <param name="vm">Album view model</param>
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
