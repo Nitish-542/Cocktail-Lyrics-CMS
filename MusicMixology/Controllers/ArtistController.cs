@@ -4,7 +4,6 @@ using MusicMixology.Models;
 
 namespace MusicMixology.ApiControllers
 {
-    // API controller for managing artist-related operations.
     [Route("api/artists")]
     [ApiController]
     public class ArtistController : ControllerBase
@@ -66,7 +65,6 @@ namespace MusicMixology.ApiControllers
             if (!success) return NotFound();
             return NoContent();
         }
-
         /// <summary>
         /// Deletes an artist by ID.
         /// </summary>

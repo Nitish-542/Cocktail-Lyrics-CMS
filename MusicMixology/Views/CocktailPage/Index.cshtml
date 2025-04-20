@@ -1,43 +1,34 @@
 ﻿@model MusicMixology.ViewModels.CocktailListViewModel
 
 @{
-    ViewData["Title"] = "Cocktail List"; // Setting the title for the view.
+    ViewData["Title"] = "Cocktail List";
 }
 
 <h2>Cocktail List</h2>
 
-<!-- Form for filtering cocktails by category and bartender -->
 <form method="get" asp-action="Index" class="mb-3">
     <div class="form-row d-flex gap-3 align-items-end">
-        <!-- Dropdown for selecting cocktail category -->
         <div>
             <label>Category</label>
             <select asp-for="SelectedCategoryId" asp-items="Model.Categories" class="form-control">
-                <option value="">All</option> <!-- Option to show all categories -->
+                <option value="">All</option>
             </select>
         </div>
-
-        <!-- Dropdown for selecting bartender -->
         <div>
             <label>Bartender</label>
             <select asp-for="SelectedBartenderId" asp-items="Model.Bartenders" class="form-control">
-                <option value="">All</option> <!-- Option to show all bartenders -->
+                <option value="">All</option>
             </select>
         </div>
-
-        <!-- Submit button to apply filters -->
         <div>
             <button type="submit" class="btn btn-primary">Filter</button>
         </div>
-
-        <!-- Link to create a new cocktail -->
         <div>
             <a asp-action="Create" class="btn btn-success">Add New Cocktail</a>
         </div>
     </div>
 </form>
 
-<!-- Table displaying the list of cocktails -->
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
@@ -45,27 +36,23 @@
             <th>Recipe</th>
             <th>Bartender</th>
             <th>Category</th>
-            <th></th> <!-- Action buttons column -->
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        <!-- Looping through cocktails in the model to display each one -->
         @foreach (var c in Model.Cocktails)
         {
             <tr>
-                <td>@c.Name</td> <!-- Cocktail name -->
-                <td>@c.Recipe</td> <!-- Cocktail recipe -->
-                <td>@c.Bartender?.Name</td> <!-- Bartender name, if available -->
-                <td>@c.Category?.CategoryName</td> <!-- Category name, if available -->
+                <td>@c.Name</td>
+                <td>@c.Recipe</td>
+                <td>@c.Bartender?.Name</td>
+                <td>@c.Category?.CategoryName</td>
                 <td>
-                    <!-- Edit button for each cocktail -->
                     <a asp-action="Edit" asp-route-id="@c.CocktailID" class="btn btn-sm btn-warning">Edit</a>
-                    <!-- View button to see cocktail details -->
-                    <a asp-action="Details" asp-route-id="@c.CocktailID" class="btn btn-sm btn-info">View</a>
-                    <!-- Delete button for each cocktail -->
+                    <a asp-action="Details" asp-route-id="@c.CocktailID" class="btn btn-sm btn-info">Details</a>
                     <a asp-action="Delete" asp-route-id="@c.CocktailID" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
         }
-    </tbody>
+    </tbody>`   
 </table>

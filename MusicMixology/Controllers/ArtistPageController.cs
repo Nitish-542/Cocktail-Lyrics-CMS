@@ -25,17 +25,29 @@ namespace MusicMixology.Controllers
             _context = context;
         }
 
+
         /// <summary>
         /// Displays a list of all artists with their albums and songs.
         /// </summary>
         /// <returns>A view containing a list of artists.</returns>
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchTerm)
         {
             var artists = await _context.Artists
                 .Include(a => a.Albums)
                 .Include(a => a.Songs)
                 .ThenInclude(s => s.Album)
                 .ToListAsync();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                var lowerSearch = searchTerm.ToLower();
+
+                artists = artists.Where(a =>
+                    (!string.IsNullOrEmpty(a.Name) && a.Name.ToLower().Contains(lowerSearch)) ||
+                    a.Albums.Any(al => al.AlbumTitle.ToLower().Contains(lowerSearch)) ||
+                    a.Songs.Any(s => s.Title.ToLower().Contains(lowerSearch))
+                ).ToList();
+            }
 
             var viewModels = artists.Select(a => new ArtistViewModel
             {
@@ -123,12 +135,9 @@ namespace MusicMixology.Controllers
         {
             if (!ModelState.IsValid) return View(vm);
 
-            var dto = new ArtistDTO
-            {
-                Name = vm.Name
-            };
-
+            var dto = new ArtistDTO { Name = vm.Name };
             await _artistService.CreateAsync(dto);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -143,13 +152,11 @@ namespace MusicMixology.Controllers
             var dto = await _artistService.GetByIdAsync(id);
             if (dto == null) return NotFound();
 
-            var vm = new ArtistViewModel
+            return View(new ArtistViewModel
             {
                 ArtistId = dto.ArtistId,
                 Name = dto.Name
-            };
-
-            return View(vm);
+            });
         }
 
         /// <summary>

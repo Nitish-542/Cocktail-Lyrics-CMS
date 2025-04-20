@@ -1,30 +1,46 @@
 ﻿@model IEnumerable<MusicMixology.Models.CategoryDTO>
 
 @{
-    // Setting the title of the view page
     ViewData["Title"] = "Category List";
 }
 
 <h2>Category List</h2>
-
-<!-- Button to navigate to create a new category -->
+<form method="get" class="mb-3 d-flex gap-2">
+    <input type="text" name="searchTerm" value="@ViewBag.SearchTerm" class="form-control w-25" placeholder="Search categories..." />
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+</form>
 <a asp-action="Create" class="btn btn-success mb-3">Add New Category</a>
 
-<!-- Table displaying the list of categories -->
 <table class="table table-bordered">
     <thead>
         <tr>
             <th>Category Name</th>
+            <th>Cocktails</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var category in Model) // Loop through each category in the model
+        @foreach (var category in Model)
         {
             <tr>
-                <td>@category.CategoryName</td> <!-- Display the category name -->
+                <td>@category.CategoryName</td>
                 <td>
-                    <!-- Action buttons for Edit, Details, and Delete operations -->
+                    @if (category.Cocktails != null && category.Cocktails.Any())
+                    {
+                        <ul class="mb-0 ps-3">
+                            @foreach (var cocktail in category.Cocktails)
+                            {
+                                <li>@cocktail.Name</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <em>No cocktails</em>
+                    }
+                </td>
+                <td>
                     <a asp-action="Edit" asp-route-id="@category.CategoryId" class="btn btn-sm btn-warning">Edit</a>
                     <a asp-action="Details" asp-route-id="@category.CategoryId" class="btn btn-sm btn-info">Details</a>
                     <a asp-action="Delete" asp-route-id="@category.CategoryId" class="btn btn-sm btn-danger">Delete</a>

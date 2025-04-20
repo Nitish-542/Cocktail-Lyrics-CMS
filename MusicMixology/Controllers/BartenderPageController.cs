@@ -26,9 +26,19 @@ namespace MusicMixology.Controllers
         /// Displays a list of all bartenders.
         /// Public access.
         /// </summary>
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchTerm)
         {
             var bartenders = await _bartenderService.GetAllAsync();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                bartenders = bartenders
+                    .Where(b => b.Name.ToLower().Contains(searchTerm))
+                    .ToList();
+            }
+
+            ViewBag.SearchTerm = searchTerm;
             return View(bartenders);
         }
 

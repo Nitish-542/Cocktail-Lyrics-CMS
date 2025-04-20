@@ -1,25 +1,24 @@
 ﻿@model MusicMixology.ViewModels.BartenderViewModel
-
 @{
-    ViewData["Title"] = "Bartender Details";  // Sets the page title
+    ViewData["Title"] = "Bartender Details";
 }
 
-<h2>@Model.Name</h2>  // Displays the bartender's name
+<h2>@Model.Name</h2>
 
-@if (Model.Cocktails?.Any() == true)  // Checks if the bartender has cocktails associated
+@if (Model.Cocktails?.Any() == true)
 {
-    <h4>Cocktails by this Bartender:</h4>  // Heading for the list of cocktails
+    <h4>Cocktails by this Bartender:</h4>
     <ul>
-        @foreach (var cocktail in Model.Cocktails)  // Iterates through the list of cocktails
+        @foreach (var cocktail in Model.Cocktails)
         {
-            <li>@cocktail.Name</li>  // Displays the name of each cocktail
+            <li>@cocktail.Name</li>
         }
     </ul>
 }
 else
 {
-    <p>No cocktails found for this bartender.</p>  // Message if no cocktails are found
+    <p>No cocktails found for this bartender.</p>
 }
 
-<a asp-action="Edit" asp-route-id="@Model.BartenderId" class="btn btn-warning">Edit</a>  // Link to edit the bartender's details
-<a asp-action="Index" class="btn btn-secondary">Back</a>  // Link to navigate back to the bartender list
+<a asp-action="Edit" asp-route-id="@Model.BartenderId" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

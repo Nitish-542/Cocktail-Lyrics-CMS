@@ -14,27 +14,32 @@ namespace MusicMixology.Controllers
         private readonly ICocktailSongPairingService _pairingService;
         private readonly ApplicationDbContext _context;
 
-        // Constructor injecting services for cocktail-song pairing and database context.
         public PairingPageController(ICocktailSongPairingService pairingService, ApplicationDbContext context)
         {
             _pairingService = pairingService;
             _context = context;
         }
 
-        /// <summary>
-        /// Displays all cocktail-song pairings.
-        /// </summary>
-        public async Task<IActionResult> Index()
+        // ✅ Public: View all pairings + search
+        public async Task<IActionResult> Index(string searchTerm)
         {
             var pairings = await _pairingService.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                searchTerm = searchTerm.ToLower();
+                pairings = pairings
+                    .Where(p =>
+                        (p.Name?.ToLower().Contains(searchTerm) ?? false) ||
+                        (p.Title?.ToLower().Contains(searchTerm) ?? false) ||
+                        (p.MoodCategory?.ToLower().Contains(searchTerm) ?? false))
+                    .ToList();
+            }
+
             return View(pairings);
         }
 
-        /// <summary>
-        /// Displays details of a specific pairing based on ID.
-        /// </summary>
-        /// <param name="id">The pairing's unique identifier.</param>
-        /// <returns>View with pairing details or NotFound if not found.</returns>
+        // ✅ Public: View pairing details
         public async Task<IActionResult> Details(int id)
         {
             var dto = await _pairingService.GetByIdAsync(id);
@@ -53,9 +58,7 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        /// <summary>
-        /// Allows admins to create a new cocktail-song pairing.
-        /// </summary>
+        // 🔐 Admin only: Create pairing
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
@@ -67,9 +70,6 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        /// <summary>
-        /// Handles the form submission for creating a new pairing.
-        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -93,9 +93,7 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        /// <summary>
-        /// Allows admins to edit an existing pairing.
-        /// </summary>
+        // 🔐 Admin only: Edit pairing
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
@@ -115,9 +113,6 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        /// <summary>
-        /// Handles the form submission for editing an existing pairing.
-        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -146,9 +141,7 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        /// <summary>
-        /// Allows admins to delete an existing pairing.
-        /// </summary>
+        // 🔐 Admin only: Delete pairing
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -166,9 +159,6 @@ namespace MusicMixology.Controllers
             return View(vm);
         }
 
-        /// <summary>
-        /// Confirms the deletion of a pairing.
-        /// </summary>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -180,7 +170,7 @@ namespace MusicMixology.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // 🔧 Helper methods for generating dropdown lists for cocktails and songs
+        // 🔧 Dropdown helpers
         private async Task<List<SelectListItem>> GetCocktailDropdown(int? selectedId = null)
         {
             return await _context.Cocktails

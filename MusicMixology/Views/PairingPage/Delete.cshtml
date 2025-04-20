@@ -1,14 +1,10 @@
 ﻿@model MusicMixology.ViewModels.PairingViewModel
-
 @{
-    // Sets the title for the page.
     ViewData["Title"] = "Delete Pairing";
 }
 
-<!-- Confirmation message asking user if they are sure about deleting the pairing -->
 <h2 class="mb-4">Are you sure you want to delete this pairing?</h2>
 
-<!-- Displaying the details of the pairing (cocktail, song, and mood category) -->
 <dl class="row">
     <dt class="col-sm-3">Cocktail</dt>
     <dd class="col-sm-9">@Model.CocktailName</dd>
@@ -20,16 +16,9 @@
     <dd class="col-sm-9">@Model.MoodCategory</dd>
 </dl>
 
-<!-- Form for submitting the delete action -->
 <form asp-action="Delete" method="post">
-    @Html.AntiForgeryToken() <!-- Prevents cross-site request forgery (CSRF) attacks -->
-    
-    <!-- Hidden input to pass the PairingId for the pairing to be deleted -->
+    @Html.AntiForgeryToken()
     <input type="hidden" asp-for="PairingId" />
-    
-    <!-- Submit button to confirm the deletion -->
     <button type="submit" class="btn btn-danger">Delete</button>
-
-    <!-- Link to cancel the action and return to the Index page -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

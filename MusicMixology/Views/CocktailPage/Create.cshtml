@@ -6,43 +6,35 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<!-- Form to create a new cocktail -->
 <form asp-action="Create" asp-controller="CocktailPage" method="post">
-    <!-- Anti-forgery token to prevent CSRF attacks -->
     @Html.AntiForgeryToken()
 
-    <!-- Validation summary that shows model-level errors -->
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <!-- Input field for cocktail name -->
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
-    <!-- Input field for cocktail recipe -->
     <div class="form-group">
         <label asp-for="Recipe" class="control-label"></label>
         <textarea asp-for="Recipe" class="form-control"></textarea>
         <span asp-validation-for="Recipe" class="text-danger"></span>
     </div>
 
-    <!-- Input field for liquor ingredients -->
     <div class="form-group">
         <label asp-for="LiqIns" class="control-label"></label>
         <input asp-for="LiqIns" class="form-control" />
         <span asp-validation-for="LiqIns" class="text-danger"></span>
     </div>
 
-    <!-- Input field for mix ingredients -->
     <div class="form-group">
         <label asp-for="MixIns" class="control-label"></label>
         <input asp-for="MixIns" class="form-control" />
         <span asp-validation-for="MixIns" class="text-danger"></span>
     </div>
 
-    <!-- Dropdown for selecting cocktail category -->
     <div class="form-group">
         <label asp-for="CategoryId" class="control-label"></label>
         <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control">
@@ -51,7 +43,6 @@
         <span asp-validation-for="CategoryId" class="text-danger"></span>
     </div>
 
-    <!-- Dropdown for selecting bartender -->
     <div class="form-group">
         <label asp-for="BartenderId" class="control-label"></label>
         <select asp-for="BartenderId" asp-items="ViewBag.Bartenders" class="form-control">
@@ -60,14 +51,12 @@
         <span asp-validation-for="BartenderId" class="text-danger"></span>
     </div>
 
-    <!-- Submit and cancel buttons -->
     <div class="form-group mt-3">
         <button type="submit" class="btn btn-primary">Add Cocktail</button>
         <a asp-action="Index" asp-controller="CocktailPage" class="btn btn-secondary">Cancel</a>
     </div>
 </form>
 
-<!-- Section for client-side validation scripts -->
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

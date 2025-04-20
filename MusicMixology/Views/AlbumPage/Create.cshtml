@@ -1,27 +1,19 @@
 ﻿@model MusicMixology.ViewModels.AlbumViewModel
-
 @{
-    // Sets the page title in the ViewData dictionary.
     ViewData["Title"] = "Create Album";
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
-<!-- 
-    Form for creating a new album. 
-    Uses POST method and targets the 'Create' action in the controller.
--->
 <form asp-action="Create" method="post">
-    @Html.AntiForgeryToken() <!-- Prevents CSRF attacks -->
+    @Html.AntiForgeryToken()
 
-    <!-- Album Title Input -->
     <div class="form-group mb-3">
         <label asp-for="AlbumTitle" class="form-label"></label>
         <input asp-for="AlbumTitle" class="form-control" />
         <span asp-validation-for="AlbumTitle" class="text-danger"></span>
     </div>
 
-    <!-- Artist Dropdown Selection -->
     <div class="form-group mb-4">
         <label asp-for="ArtistId" class="form-label"></label>
         <select asp-for="ArtistId" class="form-control" asp-items="Model.ArtistList">
@@ -30,12 +22,10 @@
         <span asp-validation-for="ArtistId" class="text-danger"></span>
     </div>
 
-    <!-- Submit and Cancel Buttons -->
     <button type="submit" class="btn btn-success">Create</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
-<!-- Section for including client-side validation scripts -->
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

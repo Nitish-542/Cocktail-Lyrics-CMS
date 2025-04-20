@@ -1,7 +1,5 @@
 ﻿@model MusicMixology.Models.BartenderDto
-
 @{
-    // Setting the page title to "Delete Bartender".
     ViewData["Title"] = "Delete Bartender";
 }
 
@@ -9,20 +7,12 @@
 
 <div>
     <h4>Are you sure you want to delete this bartender?</h4>
-    <!-- Displaying the bartender's name from the model -->
     <p><strong>Name:</strong> @Model.Name</p>
 </div>
 
 <form asp-action="Delete">
-    <!-- Anti-forgery token for security to prevent CSRF attacks -->
     @Html.AntiForgeryToken()
-
-    <!-- Hidden input to store the BartenderId for the delete operation -->
     <input type="hidden" asp-for="BartenderId" />
-
-    <!-- Submit button to trigger the delete action -->
     <button type="submit" class="btn btn-danger">Delete</button>
-    
-    <!-- Cancel button that redirects back to the list of bartenders -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

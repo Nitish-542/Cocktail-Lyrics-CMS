@@ -6,8 +6,16 @@
 
 <h2 class="mb-4">Artists</h2>
 
+<!-- 🔍 Search Bar -->
+<form method="get" class="mb-4 d-flex gap-2">
+    <input type="text" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
+           class="form-control w-25" placeholder="Search artists, albums, or songs..." />
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+</form>
+
+<!-- ➕ Add Button -->
 <p>
-    <!-- Link to the 'Create' action for adding a new artist -->
     <a asp-action="Create" class="btn btn-success">Add New Artist</a>
 </p>
 
@@ -17,16 +25,12 @@
         <div class="card-header">
             <strong>@artist.Name</strong>
             <div class="float-end">
-                <!-- Button to view artist details -->
                 <a asp-action="Details" asp-route-id="@artist.ArtistId" class="btn btn-sm btn-info">Details</a>
-                <!-- Button to edit artist details -->
                 <a asp-action="Edit" asp-route-id="@artist.ArtistId" class="btn btn-sm btn-warning">Edit</a>
-                <!-- Button to delete artist -->
                 <a asp-action="Delete" asp-route-id="@artist.ArtistId" class="btn btn-sm btn-danger">Delete</a>
             </div>
         </div>
         <div class="card-body">
-            <!-- Display the artist's albums -->
             <p><strong>Albums:</strong></p>
             @if (artist.Albums.Any())
             {
@@ -42,7 +46,6 @@
                 <p><em>No albums available.</em></p>
             }
 
-            <!-- Display the artist's songs -->
             <p class="mt-3"><strong>Songs:</strong></p>
             @if (artist.Songs.Any())
             {

@@ -1,22 +1,22 @@
 ﻿@model IEnumerable<MusicMixology.Models.SongDTO>
-
 @{
-    // Set the title for the page
     ViewData["Title"] = "Songs";
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
-
+<form method="get" class="mb-4 d-flex gap-2">
+    <input type="text" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
+           class="form-control w-25" placeholder="Search by title or genre..." />
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+</form>
 <p>
-    <!-- Button to navigate to create a new song -->
     <a asp-action="Create" class="btn btn-success">Add New Song</a>
 </p>
 
-<!-- Table to display list of songs -->
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <!-- Column headers for song details -->
             <th>Title</th>
             <th>Artist</th>
             <th>Album</th>
@@ -25,16 +25,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var song in Model)  // Iterate through each song in the model
+        @foreach (var song in Model)
         {
             <tr>
-                <!-- Display song information -->
                 <td>@song.Title</td>
                 <td>@song.ArtistName</td>
-                <td>@(string.IsNullOrEmpty(song.AlbumTitle) ? "-" : song.AlbumTitle)</td>  // Display '-' if no album title
+                <td>@(string.IsNullOrEmpty(song.AlbumTitle) ? "-" : song.AlbumTitle)</td>
                 <td>@song.Genre</td>
                 <td>
-                    <!-- Action buttons for viewing, editing, or deleting a song -->
                     <a asp-action="Details" asp-route-id="@song.SongId" class="btn btn-info btn-sm">Details</a>
                     <a asp-action="Edit" asp-route-id="@song.SongId" class="btn btn-warning btn-sm">Edit</a>
                     <a asp-action="Delete" asp-route-id="@song.SongId" class="btn btn-danger btn-sm">Delete</a>

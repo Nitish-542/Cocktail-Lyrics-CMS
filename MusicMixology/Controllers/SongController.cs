@@ -4,23 +4,18 @@ using MusicMixology.Models;
 
 namespace MusicMixology.ApiControllers
 {
-    // API controller for managing song-related actions.
     [Route("api/songs")]
     [ApiController]
     public class SongController : ControllerBase
     {
         private readonly ISongService _service;
 
-        // Constructor with dependency injection for song service.
         public SongController(ISongService service)
         {
             _service = service;
         }
 
-        /// <summary>
-        /// Retrieves a list of all songs.
-        /// </summary>
-        /// <returns>List of SongDTO objects.</returns>
+        // GET: api/songs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SongDTO>>> GetSongs()
         {
@@ -28,11 +23,7 @@ namespace MusicMixology.ApiControllers
             return Ok(songs);
         }
 
-        /// <summary>
-        /// Retrieves a single song by its ID.
-        /// </summary>
-        /// <param name="id">Song ID</param>
-        /// <returns>SongDTO object if found; otherwise, NotFound.</returns>
+        // GET: api/songs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SongDTO>> GetSong(int id)
         {
@@ -41,11 +32,7 @@ namespace MusicMixology.ApiControllers
             return Ok(song);
         }
 
-        /// <summary>
-        /// Creates a new song.
-        /// </summary>
-        /// <param name="dto">Song data transfer object.</param>
-        /// <returns>Created SongDTO object with location header.</returns>
+        // POST: api/songs
         [HttpPost]
         public async Task<ActionResult<SongDTO>> PostSong(SongDTO dto)
         {
@@ -53,12 +40,7 @@ namespace MusicMixology.ApiControllers
             return CreatedAtAction(nameof(GetSong), new { id = result.SongId }, result);
         }
 
-        /// <summary>
-        /// Updates an existing song by ID.
-        /// </summary>
-        /// <param name="id">Song ID</param>
-        /// <param name="dto">Updated SongDTO object.</param>
-        /// <returns>NoContent if successful; otherwise, NotFound.</returns>
+        // PUT: api/songs/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSong(int id, SongDTO dto)
         {
@@ -67,11 +49,7 @@ namespace MusicMixology.ApiControllers
             return NoContent();
         }
 
-        /// <summary>
-        /// Deletes a song by ID.
-        /// </summary>
-        /// <param name="id">Song ID</param>
-        /// <returns>NoContent if successful; otherwise, NotFound.</returns>
+        // DELETE: api/songs/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSong(int id)
         {
