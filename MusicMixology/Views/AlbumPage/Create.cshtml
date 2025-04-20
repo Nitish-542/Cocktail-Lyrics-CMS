@@ -1,32 +1,45 @@
 ﻿@model MusicMixology.ViewModels.AlbumViewModel
+
 @{
+    // Set the page title to be used in the browser and on the page
     ViewData["Title"] = "Create Album";
 }
 
+<!-- Page Heading -->
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
+<!-- Begin form to create a new album -->
 <form asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken() 
+    <!-- Adds anti-forgery token to prevent CSRF attacks -->
 
+    <!-- Album Title Input -->
     <div class="form-group mb-3">
         <label asp-for="AlbumTitle" class="form-label"></label>
+        <!-- Input box bound to AlbumTitle property of the ViewModel -->
         <input asp-for="AlbumTitle" class="form-control" />
+        <!-- Validation message for AlbumTitle -->
         <span asp-validation-for="AlbumTitle" class="text-danger"></span>
     </div>
 
+    <!-- Artist Dropdown Selection -->
     <div class="form-group mb-4">
         <label asp-for="ArtistId" class="form-label"></label>
+        <!-- Dropdown bound to ArtistId with options from ArtistList -->
         <select asp-for="ArtistId" class="form-control" asp-items="Model.ArtistList">
-            <option value="">-- Select Artist --</option>
+            <option value="">-- Select Artist --</option> <!-- Default option -->
         </select>
+        <!-- Validation message for ArtistId -->
         <span asp-validation-for="ArtistId" class="text-danger"></span>
     </div>
 
+    <!-- Submit and Cancel Buttons -->
     <button type="submit" class="btn btn-success">Create</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
 @section Scripts {
+    <!-- Includes client-side validation scripts -->
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

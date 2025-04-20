@@ -1,26 +1,36 @@
-﻿@model MusicMixology.ViewModels.CategoryViewModel
+﻿@model MusicMixology.ViewModels.CategoryViewModel // Binds the view to the CategoryViewModel for data input/output
 
 @{
-    ViewData["Title"] = "Create Category";
+    ViewData["Title"] = "Create Category"; // Sets the page title
 }
 
-<h2>Create Category</h2>
+<h2>Create Category</h2> 
+<!-- Header for the form -->
 
-<form asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
+<!-- Form to create a new category -->
+<form asp-action="Create" method="post"> 
+    <!-- Submits form data to the 'Create' action in the controller using POST -->
+    @Html.AntiForgeryToken() // Prevents Cross-Site Request Forgery (CSRF) attacks
 
-    <div class="form-group">
-        <label asp-for="CategoryName"></label>
-        <input asp-for="CategoryName" class="form-control" />
-        <span asp-validation-for="CategoryName" class="text-danger"></span>
+    <div class="form-group"> 
+        <!-- Group for category name input -->
+        <label asp-for="CategoryName"></label> 
+        <!-- Displays label for CategoryName property -->
+        <input asp-for="CategoryName" class="form-control" /> 
+        <!-- Text input for CategoryName, styled with Bootstrap -->
+        <span asp-validation-for="CategoryName" class="text-danger"></span> 
+        <!-- Validation error display -->
     </div>
 
-    <button type="submit" class="btn btn-success">Create</button>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <button type="submit" class="btn btn-success">Create</button> 
+    <!-- Submit button to create category -->
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a> 
+    <!-- Navigation link to return to category list -->
 </form>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    @{ 
+        // Renders client-side validation scripts (e.g., jQuery validation) from partial view
+        await Html.RenderPartialAsync("_ValidationScriptsPartial"); 
     }
 }

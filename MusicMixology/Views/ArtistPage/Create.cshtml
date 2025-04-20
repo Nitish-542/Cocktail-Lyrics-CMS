@@ -1,26 +1,39 @@
 ﻿@model MusicMixology.ViewModels.ArtistViewModel
 
 @{
+    // Set the title of the page to be used in the layout or heading
     ViewData["Title"] = "Create Artist";
 }
 
+<!-- Page heading -->
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
+<!-- Begin form for creating a new artist -->
 <form asp-action="Create" method="post">
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken() 
+    <!-- Adds an anti-forgery token for CSRF protection -->
 
+    <!-- Artist Name Input Field -->
     <div class="mb-3">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
+        <label asp-for="Name" class="form-label"></label> 
+        <!-- Label for 'Name' property -->
+        <input asp-for="Name" class="form-control" /> 
+        <!-- Text input bound to 'Name' -->
         <span asp-validation-for="Name" class="text-danger"></span>
+         <!-- Validation message for 'Name' -->
     </div>
 
-    <button type="submit" class="btn btn-success">Create</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    <!-- Submit and Cancel buttons -->
+    <button type="submit" class="btn btn-success">Create</button> 
+    <!-- Submits the form -->
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a> 
+    <!-- Redirects to Index page -->
 </form>
 
+<!-- Section for including client-side validation scripts -->
 @section Scripts {
     @{
+        // Load the partial view that contains jQuery validation scripts
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

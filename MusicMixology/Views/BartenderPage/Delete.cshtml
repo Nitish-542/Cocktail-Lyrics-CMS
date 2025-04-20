@@ -1,18 +1,30 @@
-﻿@model MusicMixology.Models.BartenderDto
+﻿@model MusicMixology.Models.BartenderDto // Binds the view to a BartenderDto model object
+
 @{
-    ViewData["Title"] = "Delete Bartender";
+    ViewData["Title"] = "Delete Bartender"; 
+    // Sets the page title shown in the browser
 }
 
 <h2>Delete Bartender</h2>
 
 <div>
+    <!-- Displays a confirmation message with bartender details -->
     <h4>Are you sure you want to delete this bartender?</h4>
-    <p><strong>Name:</strong> @Model.Name</p>
+    <p><strong>Name:</strong> @Model.Name</p> <!-- Shows the bartender's name -->
 </div>
 
-<form asp-action="Delete">
-    @Html.AntiForgeryToken()
+<!-- Form to confirm deletion of the bartender -->
+<form asp-action="Delete"> 
+    <!-- Submits to the Delete action method in the controller -->
+    @Html.AntiForgeryToken() 
+    <!-- Protects against cross-site request forgery (CSRF) attacks -->
+    
+    <!-- Hidden field to pass the bartender's ID to the controller -->
     <input type="hidden" asp-for="BartenderId" />
+
+    <!-- Submit button to confirm deletion -->
     <button type="submit" class="btn btn-danger">Delete</button>
+
+    <!-- Cancel button that redirects back to the Index page -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

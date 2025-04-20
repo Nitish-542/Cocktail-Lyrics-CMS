@@ -1,42 +1,53 @@
 ﻿@{
+    // Set the page title in the ViewData dictionary
     ViewData["Title"] = "Welcome to MusicMixology";
 }
 
+<!-- Main welcome section with a heading and description -->
 <div class="text-center mt-5 mb-5">
     <h1 class="display-4 fw-bold">🎶 Welcome to MusicMixology 🍸</h1>
     <p class="lead mt-3">Discover the perfect cocktail and music pairings based on your mood.</p>
 
+    <!-- Button that navigates to the pairing page -->
     <a class="btn btn-primary btn-lg mt-4" asp-controller="PairingPage" asp-action="Index">
         Explore Sound & Sip
     </a>
 </div>
 
+<!-- Three-column section displaying feature cards -->
 <div class="row text-center mt-5">
+    
+    <!-- Card 1: Browse Cocktails -->
     <div class="col-md-4 mb-4">
         <div class="card shadow-sm border-0 h-100">
             <div class="card-body">
                 <h5 class="card-title">Browse Cocktails</h5>
                 <p class="card-text">Explore our curated list of cocktails and discover your next favorite drink.</p>
+                <!-- Link to CocktailPage Index -->
                 <a asp-controller="CocktailPage" asp-action="Index" class="btn btn-outline-primary">View Cocktails</a>
             </div>
         </div>
     </div>
 
+    <!-- Card 2: Listen by Mood -->
     <div class="col-md-4 mb-4">
         <div class="card shadow-sm border-0 h-100">
             <div class="card-body">
                 <h5 class="card-title">Listen by Mood</h5>
                 <p class="card-text">Find songs that match your vibe or explore pairings for different moods.</p>
+                <!-- Link to PairingPage Index -->
                 <a asp-controller="PairingPage" asp-action="Index" class="btn btn-outline-primary">Start Pairing</a>
             </div>
         </div>
     </div>
 
+    <!-- Card 3: Meet the Artists -->
     <div class="col-md-4 mb-4">
         <div class="card shadow-sm border-0 h-100">
             <div class="card-body">
                 <h5 class="card-title">Meet the Artists</h5>
                 <p class="card-text">Learn about the creators behind the songs and cocktails in our collection.</p>
+                <!-- Link to ArtistPage Index -->
                 <a asp-controller="ArtistPage" asp-action="Index" class="btn btn-outline-primary">View Artists</a>
             </div>
         </div>

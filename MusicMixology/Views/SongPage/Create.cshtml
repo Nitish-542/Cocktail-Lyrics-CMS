@@ -1,18 +1,25 @@
 ﻿@model MusicMixology.ViewModels.SongViewModel
+
 @{
+    // Set the title of the view page
     ViewData["Title"] = "Create Song";
 }
+
 <h2>@ViewData["Title"]</h2>
 
+<!-- Form to create a new song entry -->
 <form asp-action="Create">
+    <!-- Displays model validation errors -->
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+    <!-- Song Title Input Field -->
     <div class="form-group">
         <label asp-for="Title" class="control-label"></label>
         <input asp-for="Title" class="form-control" />
         <span asp-validation-for="Title" class="text-danger"></span>
     </div>
 
+    <!-- Dropdown for selecting an Artist -->
     <div class="form-group">
         <label asp-for="ArtistId" class="control-label"></label>
         <select asp-for="ArtistId" class="form-control" asp-items="Model.ArtistList">
@@ -21,7 +28,7 @@
         <span asp-validation-for="ArtistId" class="text-danger"></span>
     </div>
 
-
+    <!-- Dropdown for selecting an Album -->
     <div class="form-group">
         <label asp-for="AlbumId" class="control-label"></label>
         <select asp-for="AlbumId" class="form-control" asp-items="Model.AlbumList">
@@ -30,13 +37,14 @@
         <span asp-validation-for="AlbumId" class="text-danger"></span>
     </div>
 
-
+    <!-- Input field for Genre of the song -->
     <div class="form-group">
         <label asp-for="Genre" class="control-label"></label>
         <input asp-for="Genre" class="form-control" />
         <span asp-validation-for="Genre" class="text-danger"></span>
     </div>
 
+    <!-- Submit and navigation buttons -->
     <button type="submit" class="btn btn-primary">Create</button>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </form>

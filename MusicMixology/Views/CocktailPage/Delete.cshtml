@@ -1,16 +1,29 @@
-﻿@model MusicMixology.Models.CocktailDTO
+﻿@model MusicMixology.Models.CocktailDTO // The view uses the CocktailDTO model to render cocktail data
 
 <h2>Delete Cocktail</h2>
 
 <div>
+    <!-- Confirmation prompt for the user -->
     <h4>Are you sure you want to delete this cocktail?</h4>
+    
+    <!-- Display the cocktail name -->
     <p><strong>@Model.Name</strong></p>
+    
+    <!-- Display the cocktail's category if available -->
     <p>Category: @Model.Category?.CategoryName</p>
+    
+    <!-- Display the bartender's name if available -->
     <p>Bartender: @Model.Bartender?.Name</p>
 
+    <!-- Form to submit the deletion request -->
     <form asp-action="Delete" method="post">
+        <!-- Hidden input to pass the CocktailID to the controller -->
         <input type="hidden" asp-for="CocktailID" />
+        
+        <!-- Submit button to confirm deletion -->
         <button type="submit" class="btn btn-danger">Delete</button>
+        
+        <!-- Cancel button to return to the cocktail list without deleting -->
         <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>
 </div>

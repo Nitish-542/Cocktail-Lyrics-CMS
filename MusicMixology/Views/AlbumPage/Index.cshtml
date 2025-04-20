@@ -1,12 +1,15 @@
 ﻿@model IEnumerable<MusicMixology.Models.AlbumDTO>
 
 @{
+    // Set the page title
     ViewData["Title"] = "Albums";
 }
 
+<!-- Page Heading -->
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
-<!-- 🔍 Search Bar -->
+<!-- Search Bar Section -->
+<!-- Allows users to search albums by album or artist name -->
 <form method="get" class="mb-4 d-flex gap-2">
     <input type="text" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
            class="form-control w-25" placeholder="Search by album or artist" />
@@ -14,42 +17,47 @@
     <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
 </form>
 
-<!-- Add Album Button -->
+<!-- ➕ Add New Album Button -->
+<!-- Navigates to the Create Album form -->
 <p>
     <a asp-action="Create" class="btn btn-success">Add New Album</a>
 </p>
 
+<!-- Albums Table -->
+<!-- Displays all albums and associated data in tabular format -->
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Album Title</th>
-            <th>Artist</th>
-            <th>Songs</th>
-            <th>Actions</th>
+            <th>Album Title</th> <!-- Column for album name -->
+            <th>Artist</th> <!-- Column for artist name -->
+            <th>Songs</th> <!-- Column for listing songs in the album -->
+            <th>Actions</th> <!-- Column for action buttons (CRUD) -->
         </tr>
     </thead>
     <tbody>
-        @foreach (var album in Model)
+        @foreach (var album in Model) // Iterate through each album in the list
         {
             <tr>
-                <td>@album.AlbumTitle</td>
-                <td>@album.ArtistName</td>
+                <td>@album.AlbumTitle</td> <!-- Display album title -->
+                <td>@album.ArtistName</td> <!-- Display artist name -->
                 <td>
-                    @if (album.Songs.Any())
+                    @if (album.Songs.Any()) // If album has songs, list them
                     {
                         <ul class="mb-0 ps-3">
-                            @foreach (var song in album.Songs)
+                            @foreach (var song in album.Songs) // Display each song
                             {
-                                <li>@song.Title (@song.Genre)</li>
+                                <li>@song.Title (@song.Genre)</li> 
+                                <!-- Show song title and genre -->
                             }
                         </ul>
                     }
                     else
                     {
-                        <em>No songs</em>
+                        <em>No songs</em> <!-- Fallback if no songs -->
                     }
                 </td>
                 <td>
+                    <!-- Action buttons for each album -->
                     <a asp-action="Details" asp-route-id="@album.AlbumId" class="btn btn-info btn-sm">Details</a>
                     <a asp-action="Edit" asp-route-id="@album.AlbumId" class="btn btn-warning btn-sm">Edit</a>
                     <a asp-action="Delete" asp-route-id="@album.AlbumId" class="btn btn-danger btn-sm">Delete</a>

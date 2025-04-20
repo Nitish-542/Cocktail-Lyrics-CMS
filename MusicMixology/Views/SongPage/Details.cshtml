@@ -1,23 +1,31 @@
 ﻿@model MusicMixology.Models.SongDTO
+
 @{
+    // Set the page title in the browser/tab and in layout title bar if applicable
     ViewData["Title"] = "Song Details";
 }
 
+<!-- Page heading displaying the song title -->
 <h2 class="mb-4">@Model.Title</h2>
 
 <hr />
 
+<!-- Description list (dl) to display song details in a label-value format -->
 <dl class="row">
+    <!-- Display the artist name -->
     <dt class="col-sm-2">Artist</dt>
     <dd class="col-sm-10">@Model.ArtistName</dd>
 
+    <!-- Display the album title; show "-" if the album title is null or empty -->
     <dt class="col-sm-2">Album</dt>
     <dd class="col-sm-10">@(!string.IsNullOrEmpty(Model.AlbumTitle) ? Model.AlbumTitle : "-")</dd>
 
+    <!-- Display the genre of the song -->
     <dt class="col-sm-2">Genre</dt>
     <dd class="col-sm-10">@Model.Genre</dd>
 </dl>
 
+<!-- Action buttons for editing the song or going back to the list -->
 <div>
     <a asp-action="Edit" asp-route-id="@Model.SongId" class="btn btn-primary">Edit</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>

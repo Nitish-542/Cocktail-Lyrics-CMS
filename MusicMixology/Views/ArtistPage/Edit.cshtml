@@ -1,27 +1,42 @@
 ﻿@model MusicMixology.ViewModels.ArtistViewModel
+// Specifies that this Razor view uses the ArtistViewModel from the MusicMixology.ViewModels namespace.
 
 @{
     ViewData["Title"] = "Edit Artist";
+    // Sets the page title to be displayed in the view header.
 }
 
 <h2 class="mb-4">@ViewData["Title"]</h2>
+<!-- Displays the title of the page using Bootstrap styling -->
 
 <form asp-action="Edit" method="post">
     @Html.AntiForgeryToken()
+    // Generates an anti-forgery token to protect against Cross-Site Request Forgery (CSRF) attacks.
+
     <input type="hidden" asp-for="ArtistId" />
+    // Hidden field to store the artist's ID so it can be sent with the form submission.
 
     <div class="mb-3">
         <label asp-for="Name" class="form-label"></label>
+        // Generates a label for the "Name" property with Bootstrap styling.
+
         <input asp-for="Name" class="form-control" />
+        // Renders an input box for the "Name" property with Bootstrap styling.
+
         <span asp-validation-for="Name" class="text-danger"></span>
+        // Displays validation error messages for the "Name" field, if any.
     </div>
 
     <button type="submit" class="btn btn-primary">Save Changes</button>
+    // Submit button to save the edited artist data.
+
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    // Link to return to the artist index/list page without saving.
 </form>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        // Includes the client-side validation scripts required for form validation.
     }
 }

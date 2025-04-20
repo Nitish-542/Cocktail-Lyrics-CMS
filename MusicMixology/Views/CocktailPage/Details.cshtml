@@ -1,19 +1,31 @@
-﻿@model MusicMixology.Models.CocktailDTO
+﻿@model MusicMixology.Models.CocktailDTO // The view is strongly typed to CocktailDTO from the MusicMixology.Models namespace
 
 @{
-    ViewData["Title"] = "Cocktail Details";
+    ViewData["Title"] = "Cocktail Details"; // Sets the page title used in layout or browser tab
 }
 
-<h2>Cocktail Details</h2>
+<h2>Cocktail Details</h2> <!-- Page header -->
 
+<!-- Container card for displaying cocktail information -->
 <div class="card p-3">
-    <h4>@Model.Name</h4>
+    <h4>@Model.Name</h4> <!-- Displays the name of the cocktail -->
+
+    <!-- Display the recipe for the cocktail -->
     <p><strong>Recipe:</strong> @Model.Recipe</p>
+
+    <!-- Displays the liquor ingredients -->
     <p><strong>Liquor Ingredients:</strong> @Model.LiqIns</p>
+
+    <!-- Displays the mixing ingredients -->
     <p><strong>Mix Ingredients:</strong> @Model.MixIns</p>
+
+    <!-- Displays the bartender's name (null-safe) -->
     <p><strong>Bartender:</strong> @Model.Bartender?.Name</p>
+
+    <!-- Displays the category of the cocktail (null-safe) -->
     <p><strong>Category:</strong> @Model.Category?.CategoryName</p>
 
+    <!-- Action buttons to edit, delete or go back to list -->
     <a asp-action="Edit" asp-route-id="@Model.CocktailID" class="btn btn-warning">Edit</a>
     <a asp-action="Delete" asp-route-id="@Model.CocktailID" class="btn btn-danger">Delete</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>

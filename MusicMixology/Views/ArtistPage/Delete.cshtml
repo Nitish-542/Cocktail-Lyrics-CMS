@@ -1,18 +1,30 @@
 ﻿@model MusicMixology.Models.ArtistDTO
 
 @{
+    // Sets the title of the view for use in the layout page
     ViewData["Title"] = "Delete Artist";
 }
 
+<!-- Page heading -->
 <h2 class="mb-4">Are you sure you want to delete this artist?</h2>
 
+<!-- Display artist's name for confirmation -->
 <div class="mb-3">
-    <h4>@Model.Name</h4>
+    <h4>@Model.Name</h4> 
+    <!-- Binds and shows the artist's name -->
 </div>
 
+<!-- Form to confirm deletion -->
 <form asp-action="Delete" method="post">
-    @Html.AntiForgeryToken()
+    @Html.AntiForgeryToken() 
+    <!-- Adds a hidden anti-forgery token for security -->
+    
+    <!-- Hidden input to pass the artist's ID -->
     <input type="hidden" asp-for="ArtistId" />
+
+    <!-- Submit button to confirm deletion -->
     <button type="submit" class="btn btn-danger">Delete</button>
+    
+    <!-- Link to cancel and go back to the artist index -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

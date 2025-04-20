@@ -1,39 +1,56 @@
 ﻿@model MusicMixology.ViewModels.PairingViewModel
+
 @{
+    // Set the page title
     ViewData["Title"] = "Create Pairing";
 }
 
+<!-- Page Heading -->
 <h2 class="mb-4">@ViewData["Title"]</h2>
 
+<!-- Begin Form to Create a New Pairing -->
 <form asp-action="Create" method="post">
+    <!-- Protect against CSRF attacks -->
     @Html.AntiForgeryToken()
 
+    <!-- Dropdown to select a Cocktail -->
     <div class="mb-3">
         <label asp-for="CocktailId" class="form-label"></label>
+        <!-- Binds to CocktailId and populates with CocktailList from ViewModel -->
         <select asp-for="CocktailId" class="form-control" asp-items="Model.CocktailList">
             <option value="">-- Select Cocktail --</option>
         </select>
+        <!-- Displays validation message if CocktailId is invalid -->
         <span asp-validation-for="CocktailId" class="text-danger"></span>
     </div>
 
+    <!-- Dropdown to select a Song -->
     <div class="mb-3">
         <label asp-for="SongId" class="form-label"></label>
+        <!-- Binds to SongId and populates with SongList from ViewModel -->
         <select asp-for="SongId" class="form-control" asp-items="Model.SongList">
             <option value="">-- Select Song --</option>
         </select>
+        <!-- Displays validation message if SongId is invalid -->
         <span asp-validation-for="SongId" class="text-danger"></span>
     </div>
 
+    <!-- Text input for Mood Category -->
     <div class="mb-3">
         <label asp-for="MoodCategory" class="form-label"></label>
+        <!-- Binds to MoodCategory input -->
         <input asp-for="MoodCategory" class="form-control" />
+        <!-- Displays validation message if MoodCategory is invalid -->
         <span asp-validation-for="MoodCategory" class="text-danger"></span>
     </div>
 
+    <!-- Submit button to create pairing -->
     <button type="submit" class="btn btn-success">Create</button>
+    <!-- Cancel button redirects back to index page -->
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
 
+<!-- Section for client-side validation scripts -->
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
